@@ -1,26 +1,84 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { BrowserRouter } from "react-router-dom";
+import { Routes } from "react-router-dom";
 
-function App() {
+import Home from "./components/Home";
+import Lists from "./components/Lists";
+import AddMenu from "./components/AddMenu";
+
+import DataOutput from "./components/DataOutput";
+import Settings from "./components/Settings";
+
+import { Link, Route } from "react-router-dom";
+
+const App = () => {
+  // const testFunc = () => {
+  //   return { output: "in the func !!!" };
+  // };
+
+  const homeProps = {
+    name: "Some thing",
+    price: 123,
+    // func: testFunc(),
+  };
+
+  const listsProps = {
+    name: "Some thing",
+    price: 123,
+  };
+
+  const addProps = {
+    name: "Some thing",
+    price: 123,
+  };
+
+  const dataProps = {
+    name: "Some thing",
+    price: 123,
+  };
+
+  const settingsProps = {
+    name: "Some thing",
+    price: 123,
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <div className="Nav-Bar"> */}
+      <BrowserRouter>
+        <Navbar bg="light" variant="light" fixed="bottom">
+          <Nav className="me-auto">
+            <Link to="/" data={homeProps}>
+              Home
+            </Link>
+            <Link to="/lists" state={listsProps}>
+              Lists
+            </Link>
+            <Link to="/add" state={addProps}>
+              Add
+            </Link>
+            <Link to="/data" state={dataProps}>
+              Data
+            </Link>
+            <Link to="/settings" state={settingsProps}>
+              Settings
+            </Link>
+          </Nav>
+        </Navbar>
+        <Routes>
+          <Route path="/lists" element={<Lists />}></Route>
+          <Route path="/add" element={<AddMenu />}></Route>
+          <Route path="/data" element={<DataOutput />}></Route>
+          <Route path="/settings" element={<Settings />}></Route>
+          <Route path="/" element={<Home />}></Route>
+        </Routes>
+      </BrowserRouter>
+      {/* </div> */}
     </div>
   );
-}
+};
 
 export default App;
