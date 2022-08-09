@@ -4,20 +4,26 @@ import "./Lists.css";
 
 import { useState, useEffect } from "react";
 
-import SymptomsList from "./SymptomsList";
-import TriggersList from "./TriggersList";
+import SymptomsList from "../symptoms/SymptomsList";
+import TriggersList from "../triggers/TriggersList";
 
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
-const Lists = () => {
+const Lists = (props) => {
   const [selectedList, setSelectedList] = useState("SymptomsList"); // default
   //BUTTON CLASS FOR COLORS:
   const [symptomsButton, setSymptomsButton] = useState("selected");
   const [triggersButton, setTriggersButton] = useState("notSelected");
 
-  const location = useLocation();
-  const data = location.state;
-  console.log(data);
+  //props:
+  // const symptomEntries = props.symptomEntries
+  // dont forget about props.deleteSymptomEntriesCallback
+
+  // const deleteSymptomEntriesCallback={deleteSymptomEntries}
+
+  // const location = useLocation();
+  // const data = location.state;
+  // console.log(data);
 
   const selectSymptomsList = () => {
     setSelectedList("SymptomsList");
@@ -42,7 +48,12 @@ const Lists = () => {
         </button>
       </section>
       <section>
-        {selectedList === "SymptomsList" && <SymptomsList></SymptomsList>}
+        {selectedList === "SymptomsList" && (
+          <SymptomsList
+            entries={props.symptomEntries}
+            deleteSympEntriesCallback={props.deleteSympEntriesCallback}
+          ></SymptomsList>
+        )}
         {selectedList === "TriggersList" && <TriggersList></TriggersList>}
       </section>
     </div>

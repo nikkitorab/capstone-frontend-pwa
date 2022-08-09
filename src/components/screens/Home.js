@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 const Home = (props) => {
-  const location = useLocation();
+  // const location = useLocation();
   // const data = location.state;
   // console.log(data);
   // const f = location.state.func;

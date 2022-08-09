@@ -1,11 +1,11 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const AddSymptomForm = (props) => {
-  const location = useLocation();
-  const data = location.state;
-  console.log(data);
+  // const location = useLocation();
+  // const data = location.state;
+  // console.log(data);
 
   const [enteredSymptomText, setEnteredSymptomText] = useState("");
 

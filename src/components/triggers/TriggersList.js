@@ -1,14 +1,14 @@
 import React from "react";
 import Trigger from "./Trigger";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AddTriggerForm from "./AddTriggerForm";
 
 const TriggersList = () => {
-  const location = useLocation();
-  const data = location.state;
-  console.log(data);
+  // const location = useLocation();
+  // const data = location.state;
+  // console.log(data);
 
   // const [enteredSymptomText, setEnteredSymptomText] = useState("");
   //state for symptoms
