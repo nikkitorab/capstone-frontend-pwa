@@ -11,8 +11,8 @@ import Home from "./components/screens/Home";
 import Lists from "./components/screens/Lists";
 import AddMenu from "./components/screens/AddMenu";
 
-import DataOutput from "./components/screens/DataOutput";
-import Settings from "./components/screens/Settings";
+import DataOutput from "./components/DataOutput";
+// import DataO from "./components/screens/Settings";
 import SymptomEntries from "./components/symptoms/SymptomEntries";
 
 // import { Link, Route } from "react-router-dom";
@@ -21,6 +21,26 @@ const App = () => {
   const homeScreen = <Home> </Home>;
   const [selectedScreen, setSelectedScreen] = useState(homeScreen);
 
+  const [entriesData, setEntriesData] = useState([]);
+
+  useEffect(() => {
+    getEntriesData();
+  }, []);
+
+  const getEntriesData = () => {
+    axios
+      .get("http://localhost:3000/entries")
+      .then((response) => {
+        setEntriesData(response.data);
+        // console.log(`entries data: ${entriesData}`);
+        for (const entry of entriesData) {
+          console.log(entry);
+        }
+      })
+      .catch((error) => {
+        console.log("cant get ur entry data :/ ");
+      });
+  };
   // const [entries, setEntries] = useState[[]];
   // // useEffect(() => {
   // //   getSymptomEntriesFromAPI();
@@ -50,7 +70,12 @@ const App = () => {
   };
 
   const selectData = () => {
-    const dataScreen = <DataOutput></DataOutput>;
+    const dataScreen = (
+      <DataOutput
+        getEntriesDataCallback={getEntriesData}
+        data={entriesData}
+      ></DataOutput>
+    );
     setSelectedScreen(dataScreen);
     console.log("selected data");
   };

@@ -12,10 +12,15 @@ const SymptomEntries = () => {
   //
   const [symptomsData, setSymptomsData] = useState([]);
   const [completedEntries, setCompletedEntries] = useState([]);
+  // const [entriesData, setEntriesData] = useState([]);
 
   useEffect(() => {
     getSymptomsFromAPI();
   }, []);
+
+  // useEffect(() => {
+  //   getEntriesData();
+  // }, []);
 
   // API - GET
   const getSymptomsFromAPI = () => {
@@ -28,6 +33,21 @@ const SymptomEntries = () => {
         console.log("cant get ur symptoms :/ ");
       });
   };
+
+  // const getEntriesData = () => {
+  //   axios
+  //     .get("http://localhost:3000/entries")
+  //     .then((response) => {
+  //       setEntriesData(response.data);
+  //       // console.log(`entries data: ${entriesData}`);
+  //       for (const entry of entriesData) {
+  //         console.log(entry);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur entry data :/ ");
+  //     });
+  // };
 
   // //API - get symptom by id --> MARK AS COMPLETED
   // const getSymptomById = (id) => {
@@ -47,24 +67,24 @@ const SymptomEntries = () => {
   // const [completedSymptom, setCompletedSymptom] = useState({});
   //API - get symptom by id --> MARK AS COMPLETED
   // THIS DOESNT WORK
-  const markSymptomComplete = (id) => {
-    axios
-      .get(`http://localhost:3000/symptoms/${id}`)
-      .then((response) => {
-        // setCompletedSymptom(response.data);
-        console.log(`completedSymptom in add symptpm: ${response.data}`);
-        const updatedCompleted = [response.data];
-        console.log(updatedCompleted);
-        for (const symptom in completedEntries) {
-          updatedCompleted.push(symptom);
-        }
-        setCompletedEntries(updatedCompleted);
-        console.log(`completed list: ${completedEntries}`);
-      })
-      .catch((error) => {
-        console.log("OH NOES OH NOES! Could not get symptom name");
-      });
-  };
+  // const markSymptomComplete = (id) => {
+  //   axios
+  //     .get(`http://localhost:3000/symptoms/${id}`)
+  //     .then((response) => {
+  //       // setCompletedSymptom(response.data);
+  //       console.log(`completedSymptom in add symptpm: ${response.data}`);
+  //       const updatedCompleted = [response.data];
+  //       console.log(updatedCompleted);
+  //       for (const symptom in completedEntries) {
+  //         updatedCompleted.push(symptom);
+  //       }
+  //       setCompletedEntries(updatedCompleted);
+  //       console.log(`completed list: ${completedEntries}`);
+  //     })
+  //     .catch((error) => {
+  //       console.log("OH NOES OH NOES! Could not get symptom name");
+  //     });
+  // };
 
   // API - POST
   const addSymptomEntry = (data) => {
@@ -80,7 +100,7 @@ const SymptomEntries = () => {
           (symptom) => symptom.id !== symptomID
         );
         // THIS DOESNT WORK
-        markSymptomComplete(symptomID);
+        // markSymptomComplete(symptomID);
         // console.log(`completedSymptom in add symptpm: ${completedSymptom}`);
         // const updatedCompleted = [completedSymptom];
         // for (const symptom in completedEntries) {
@@ -91,6 +111,9 @@ const SymptomEntries = () => {
         // setCompletedEntries((current) => [...current, completedName]);
 
         setSymptomsData(updatedSymptoms);
+        // getEntriesData();
+
+        // CALL FUNCTION TO GET ENTRIES DATA
 
         // for(const sym of )
         //add completed symptom to completedEntries list
