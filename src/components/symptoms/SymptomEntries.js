@@ -12,11 +12,19 @@ const SymptomEntries = () => {
   //
   const [symptomsData, setSymptomsData] = useState([]);
   const [completedEntries, setCompletedEntries] = useState([]);
+  // const [lastEntryID, setLastEntryID] = useState("");
+  // const [done, setDone] = useState(1);
+
   // const [entriesData, setEntriesData] = useState([]);
 
   useEffect(() => {
     getSymptomsFromAPI();
   }, []);
+
+  // useEffect(() => {
+  //   // addRelatedEntries(lastEntryID);
+  //   getSymptomEntriesFromAPI(lastEntryID);
+  // }, [lastEntryID]);
 
   // useEffect(() => {
   //   getEntriesData();
@@ -34,64 +42,23 @@ const SymptomEntries = () => {
       });
   };
 
-  // const getEntriesData = () => {
+  // const getSymptomEntriesFromAPI = (id) => {
   //   axios
-  //     .get("http://localhost:3000/entries")
+  //     .get(`http://localhost:3000/related-entries/symptom-entries/${id}`)
   //     .then((response) => {
-  //       setEntriesData(response.data);
-  //       // console.log(`entries data: ${entriesData}`);
-  //       for (const entry of entriesData) {
-  //         console.log(entry);
-  //       }
+  //       console.log(response.data);
+  //       // addRelatedEntries(lastEntryID);
+  //       // setEntries(response.data);
   //     })
   //     .catch((error) => {
-  //       console.log("cant get ur entry data :/ ");
-  //     });
-  // };
-
-  // //API - get symptom by id --> MARK AS COMPLETED
-  // const getSymptomById = (id) => {
-  //   axios
-  //     .get(`http://localhost:3000/symptoms/${id}`)
-  //     .then((response) => {
-  //       // setCats(response.data)
-  //       // const name = response.data.name;
-  //       // console.log(`name: ${response.data}`);
-  //       // return name;
-  //     })
-  //     .catch((error) => {
-  //       console.log("OH NOES OH NOES! Could not get symptom name");
-  //     });
-  // };
-
-  // const [completedSymptom, setCompletedSymptom] = useState({});
-  //API - get symptom by id --> MARK AS COMPLETED
-  // THIS DOESNT WORK
-  // const markSymptomComplete = (id) => {
-  //   axios
-  //     .get(`http://localhost:3000/symptoms/${id}`)
-  //     .then((response) => {
-  //       // setCompletedSymptom(response.data);
-  //       console.log(`completedSymptom in add symptpm: ${response.data}`);
-  //       const updatedCompleted = [response.data];
-  //       console.log(updatedCompleted);
-  //       for (const symptom in completedEntries) {
-  //         updatedCompleted.push(symptom);
-  //       }
-  //       setCompletedEntries(updatedCompleted);
-  //       console.log(`completed list: ${completedEntries}`);
-  //     })
-  //     .catch((error) => {
-  //       console.log("OH NOES OH NOES! Could not get symptom name");
+  //       console.log("cant get ur entries :/ ");
   //     });
   // };
 
   // API - POST
-  const addSymptomEntry = (data) => {
-    // console.log("here 2");
-    // console.log(data);
+  const addSymptomEntryAPI = (data) => {
     const symptomID = data.symptom_id;
-    axios
+    return axios
       .post("http://localhost:3000/symptom-entries", data)
       .then((response) => {
         // remove symptom from to-do list
@@ -110,7 +77,7 @@ const SymptomEntries = () => {
         // console.log(`completed name: ${completedName}`);
         // setCompletedEntries((current) => [...current, completedName]);
 
-        setSymptomsData(updatedSymptoms);
+        // setSymptomsData(updatedSymptoms);
         // getEntriesData();
 
         // CALL FUNCTION TO GET ENTRIES DATA
@@ -142,10 +109,20 @@ const SymptomEntries = () => {
         //   // updatedCompleted.push(entry)
         //   entry
         // );
+        // const symptomEntryID = response.data;
+        // const relatedData = symptomEntryID;
+        // return response.data;
+        console.log(`response: ${response.data.id}`);
+        // setLastEntryID(response.data.id);
+        return response.data.id;
       })
       .catch((error) => {
         console.log("COULDN'T MAKE A new symptom entry");
       });
+
+    // const relatedData = { symptomEntryID };
+
+    // add related entries
   };
 
   const editEntry = () => {
@@ -161,7 +138,7 @@ const SymptomEntries = () => {
             key={symptom.id}
             id={symptom.id}
             name={symptom.name}
-            addEntryCallback={addSymptomEntry}
+            addEntryCallback={addSymptomEntryAPI}
           />
         ))}
       </section>

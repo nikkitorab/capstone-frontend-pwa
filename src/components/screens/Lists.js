@@ -50,11 +50,18 @@ const Lists = (props) => {
       <section>
         {selectedList === "SymptomsList" && (
           <SymptomsList
+            symptomsData={props.symptomsData}
+            getSymptomsCallback={props.getSymptomsCallback}
             entries={props.symptomEntries}
             deleteSympEntriesCallback={props.deleteSympEntriesCallback}
           ></SymptomsList>
         )}
-        {selectedList === "TriggersList" && <TriggersList></TriggersList>}
+        {selectedList === "TriggersList" && (
+          <TriggersList>
+            triggersData={props.triggersData}
+            getTriggersCallback={props.getTriggersCallback}
+          </TriggersList>
+        )}
       </section>
     </div>
   );

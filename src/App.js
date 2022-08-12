@@ -11,7 +11,7 @@ import Home from "./components/screens/Home";
 import Lists from "./components/screens/Lists";
 import AddMenu from "./components/screens/AddMenu";
 
-import DataOutput from "./components/DataOutput";
+import DataOutput from "./components/data/DataOutput";
 // import DataO from "./components/screens/Settings";
 import SymptomEntries from "./components/symptoms/SymptomEntries";
 
@@ -21,26 +21,104 @@ const App = () => {
   const homeScreen = <Home> </Home>;
   const [selectedScreen, setSelectedScreen] = useState(homeScreen);
 
-  const [entriesData, setEntriesData] = useState([]);
+  const [symptomsData, setSymptomsData] = useState([]);
+  const [triggersData, setTriggersData] = useState([]);
+
+  // const [entriesData, setEntriesData] = useState([]);
+
+  // useEffect(() => {
+  //   getEntriesData();
+  // }, []);
+
+  // const getEntriesData = () => {
+  //   axios
+  //     .get("http://localhost:3000/entries")
+  //     .then((response) => {
+  //       setEntriesData(response.data);
+  //       // console.log(`entries data: ${entriesData}`);
+  //       for (const entry of entriesData) {
+  //         console.log(entry);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur entry data :/ ");
+  //     });
+  // };
 
   useEffect(() => {
-    getEntriesData();
+    getSymptomsFromAPI();
   }, []);
 
-  const getEntriesData = () => {
+  // API - GET
+  const getSymptomsFromAPI = () => {
     axios
-      .get("http://localhost:3000/entries")
+      .get("http://localhost:3000/symptoms")
       .then((response) => {
-        setEntriesData(response.data);
-        // console.log(`entries data: ${entriesData}`);
-        for (const entry of entriesData) {
-          console.log(entry);
-        }
+        setSymptomsData(response.data);
       })
       .catch((error) => {
-        console.log("cant get ur entry data :/ ");
+        console.log("cant get ur symptoms :/ ");
       });
   };
+
+  useEffect(() => {
+    getTriggersFromAPI();
+  }, []);
+
+  // API - GET
+  const getTriggersFromAPI = () => {
+    axios
+      .get("http://localhost:3000/triggers")
+      .then((response) => {
+        setTriggersData(response.data);
+      })
+      .catch((error) => {
+        console.log("cant get ur symptoms :/ ");
+      });
+  };
+
+  // API - GET
+  const getTriggerNameByID = (id) => {
+    axios
+      .get(`http://localhost:3000/triggers/name/${id}`)
+      .then((response) => {
+        // setTriggersData(response.data);
+        console.log(`name from app: ${response.body.name}`);
+        // console.log(`id from app: ${response.data.id}`);
+        return response.data.name;
+      })
+      .catch((error) => {
+        console.log("cant get ur symptoms :/ ");
+      });
+  };
+
+  const addNewTrigger = (data) => {
+    console.log(data);
+    axios
+      .post("http://localhost:3000/triggers", data)
+      .then((response) => {
+        getTriggersFromAPI();
+      })
+      .catch((error) => {
+        console.log("COULDN'T MAKE A new trigger ");
+      });
+  };
+
+  // API - DELETE
+  const deleteTrigger = (id) => {
+    axios
+      .delete(`http://localhost:3000/triggers/${id}`)
+      .then((response) => {
+        const updatedTriggers = triggersData.filter(
+          (trigger) => trigger.id !== id
+        );
+        setTriggersData(updatedTriggers);
+      })
+      .catch((error) => {
+        console.log("Unable to delete");
+      });
+  };
+
   // const [entries, setEntries] = useState[[]];
   // // useEffect(() => {
   // //   getSymptomEntriesFromAPI();
@@ -54,9 +132,12 @@ const App = () => {
   const selectLists = () => {
     const listsScreen = (
       <Lists
-      // symptomEntries={entries}
-      // getSympEntriesCallback={getSymptomEntriesFromAPI}
-      // deleteSympEntriesCallback={deleteSymptomEntries}
+        symptomsData={symptomsData}
+        getSymptomsCallback={getSymptomsFromAPI}
+        triggersData={triggersData}
+        getTriggersCallback={getTriggersFromAPI}
+        addNewTriggerCallback={addNewTrigger}
+        deleteTriggerCallback={deleteTrigger}
       ></Lists>
     ); // add props
     setSelectedScreen(listsScreen);
@@ -72,8 +153,11 @@ const App = () => {
   const selectData = () => {
     const dataScreen = (
       <DataOutput
-        getEntriesDataCallback={getEntriesData}
-        data={entriesData}
+        symptomsData={symptomsData}
+        triggersData={triggersData}
+        getTriggerByIDCallback={getTriggerNameByID}
+        // getEntriesDataCallback={getEntriesData}
+        // data={entriesData}
       ></DataOutput>
     );
     setSelectedScreen(dataScreen);
