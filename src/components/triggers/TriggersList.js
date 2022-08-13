@@ -6,7 +6,24 @@ import axios from "axios";
 import AddTriggerForm from "./AddTriggerForm";
 
 const TriggersList = (props) => {
-  const [significantData, setSignificantData] = useState([]);
+  // const [triggersData, setTriggersData] = useState([]);
+
+  // useEffect(() => {
+  //   getTriggersFromAPI();
+  // }, []);
+
+  // // API - GET
+  // const getTriggersFromAPI = () => {
+  //   axios
+  //     .get("http://localhost:3000/triggers")
+  //     .then((response) => {
+  //       setTriggersData(response.data);
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur triggers :/ ");
+  //     });
+  // };
 
   // const getTriggers = () => {
   //   props.getTriggersCallback();
@@ -20,22 +37,6 @@ const TriggersList = (props) => {
   // const [enteredSymptomText, setEnteredSymptomText] = useState("");
   //state for symptoms
   // const [triggersData, setTriggersData] = useState([]);
-
-  // useEffect(() => {
-  //   getTriggersFromAPI();
-  // }, []);
-
-  // // API - GET
-  // const getTriggersFromAPI = () => {
-  //   axios
-  //     .get("http://localhost:3000/triggers")
-  //     .then((response) => {
-  //       setTriggersData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log("cant get ur symptoms :/ ");
-  //     });
-  // };
 
   // API - POST
   // const addNewTrigger = (data) => {

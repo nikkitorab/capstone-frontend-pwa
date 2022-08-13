@@ -66,52 +66,7 @@ const SymptomEntries = () => {
         const updatedSymptoms = symptomsData.filter(
           (symptom) => symptom.id !== symptomID
         );
-        // THIS DOESNT WORK
-        // markSymptomComplete(symptomID);
-        // console.log(`completedSymptom in add symptpm: ${completedSymptom}`);
-        // const updatedCompleted = [completedSymptom];
-        // for (const symptom in completedEntries) {
-        //   updatedCompleted.push(symptom);
-        // }
-        // setCompletedEntries(updatedCompleted);
-        // console.log(`completed name: ${completedName}`);
-        // setCompletedEntries((current) => [...current, completedName]);
 
-        // setSymptomsData(updatedSymptoms);
-        // getEntriesData();
-
-        // CALL FUNCTION TO GET ENTRIES DATA
-
-        // for(const sym of )
-        //add completed symptom to completedEntries list
-        // const name = getSymptomById(symptomID);
-        // console.log(`completed sym: ${name}`);
-
-        // const completedSymptom = { key: 89, id: symptomID, name: name };
-        // console.log(`completed sym: ${completedSymptom.name}`);
-        // setCompletedEntries((current) => [...current, completedSymptom]);
-        // setCompletedEntries(completedSymptom);
-
-        // const updatedCompleted = [completedSymptom];
-
-        // const updatedCompleted = completedEntries.map((entry) => (
-        //   // updatedCompleted.push(entry)
-        //   entry
-        // ))};
-        // const updatedCompleted = completedEntries.map((entry)
-
-        // completedEntries.map((entry) => updatedCompleted.push(entry));
-
-        // setCompletedEntries(updatedCompleted);
-        // console.log(`Completed Entries: ${completedEntries.length}`);
-        // completedEntries.map(
-        //   (entry) => console.log(`entries: ${entry}`)
-        //   // updatedCompleted.push(entry)
-        //   entry
-        // );
-        // const symptomEntryID = response.data;
-        // const relatedData = symptomEntryID;
-        // return response.data;
         console.log(`response: ${response.data.id}`);
         // setLastEntryID(response.data.id);
         return response.data.id;

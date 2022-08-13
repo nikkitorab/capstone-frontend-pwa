@@ -57,10 +57,10 @@ const Lists = (props) => {
           ></SymptomsList>
         )}
         {selectedList === "TriggersList" && (
-          <TriggersList>
+          <TriggersList
             triggersData={props.triggersData}
             getTriggersCallback={props.getTriggersCallback}
-          </TriggersList>
+          ></TriggersList>
         )}
       </section>
     </div>

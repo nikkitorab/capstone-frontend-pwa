@@ -9,19 +9,40 @@ const DataOutput = (props) => {
   const triggersData = props.triggersData;
   const symptomsData = props.symptomsData;
   const [significantData, setSignificantData] = useState([]);
-  const [mostSignificant, setMostSignificant] = useState([]);
-  const [triggerDataComponents, setTriggerDataComponents] = useState([]);
+  // const [mostSignificant, setMostSignificant] = useState([]);
+  // const [triggerDataComponents, setTriggerDataComponents] = useState([]);
   const [triggerName, setTriggerName] = useState("");
 
-  useEffect(() => {
-    getDataFromAPI();
-    // getMostSignificantTriggers();
-    // getMostSignificantTriggers();
-  }, []);
+  const [triggerIDs, setTriggerIDs] = useState([]);
 
   // useEffect(() => {
-  //   getMostSignificantTriggers();
-  // }, [significantData]);
+  //   getDataFromAPI();
+  // }, []);
+
+  useEffect(() => {
+    getSignificantTriggerIDs();
+  }, []);
+
+  const getSignificantTriggerIDs = () => {
+    axios
+      .get("http://localhost:3000/related-entries/data/sig/trigger")
+      .then((response) => {
+        const triggerIDSet = new Set();
+        for (const i of response.data) {
+          triggerIDSet.add(i.trigger_id);
+        }
+        // setTriggerIDs(triggerIDSet);
+        const triggerIDarray = [...triggerIDSet];
+        setTriggerIDs(triggerIDarray);
+        console.log(`arr: ${triggerIDarray}`);
+      })
+      .catch((error) => {
+        console.log(`error!!! ${error}`);
+      });
+  };
+  // triggerIDs.forEach((element) => {
+  //   console.log(element); // 👉️ one, two, three, four
+  // });
 
   // API - GET
   const getDataFromAPI = () => {
@@ -30,13 +51,6 @@ const DataOutput = (props) => {
       .then((response) => {
         setSignificantData(response.data);
         console.log(`sig: ${significantData}`);
-        // console.log(`ffff ${significantData}`);
-        // getMostSignificantTriggers();
-        // console.log(`ffff ${significantData}`);
-        // for (const s of significantData) {
-        //   console.log(s);
-        // }
-        // makeComponents();
       })
       .catch((error) => {
         console.log(`error!!! ${error}`);
@@ -91,41 +105,43 @@ const DataOutput = (props) => {
   //   }
   // };
 
-  const makeComponents = () => {
-    const components = {};
-    console.log("in func");
-    for (const data of significantData) {
-      // console.log(`make: ${data.id}`);
-      if (components[data.trigger_id]) {
-        components[data.trigger_id].push(data.id);
-      } else {
-        components[data.trigger_id] = [data.id];
-      }
-      console.log(`!!! ${components[data.trigger_id]}`);
-    }
+  // const makeComponents = () => {
+  //   const components = {};
+  //   console.log("in func");
+  //   for (const data of significantData) {
+  //     // console.log(`make: ${data.id}`);
+  //     if (components[data.trigger_id]) {
+  //       components[data.trigger_id].push(data.id);
+  //     } else {
+  //       components[data.trigger_id] = [data.id];
+  //     }
+  //     console.log(`!!! ${components[data.trigger_id]}`);
+  //   }
 
-    for (const x of components) {
-      console.log(`x: ${x}`);
-    }
-    // list of all data IDs
-  };
+  //   for (const x of components) {
+  //     console.log(`x: ${x}`);
+  //   }
+  //   // list of all data IDs
+  // };
 
   // console.log(`signnnn = ${mostSignificant[0].trigger_id}`);
 
   return (
     <div>
       <h1> DataOutput!!!!!</h1>
+      <h2>{triggerIDs.length}</h2>
       {/* <button onClick={getIDLists}>DELETE</button> */}
       <section>
-        {significantData.map((data) => (
+        {triggerIDs.map((id) => (
           <SignificantData
-            key={data.id}
-            id={data.id}
-            symptomID={data.symptom_id}
-            triggerID={data.trigger_id}
-            presentMean={data.present_mean}
-            absentMean={data.absent_mean}
-            cohensD={data.cohens_d}
+            key={id}
+            trigger_id={id}
+            // id={data.id}
+            // symptomID={data.symptom_id}
+            // triggerID={data.trigger_id}
+            // presentMean={data.present_mean}
+            // absentMean={data.absent_mean}
+            // cohensD={data.cohens_d}
             // triggerName={getTriggerNameByID(data.trigger_id)}
           />
         ))}

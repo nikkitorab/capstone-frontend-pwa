@@ -71,9 +71,10 @@ const App = () => {
       .get("http://localhost:3000/triggers")
       .then((response) => {
         setTriggersData(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
-        console.log("cant get ur symptoms :/ ");
+        console.log("cant get ur triggers :/ ");
       });
   };
 
