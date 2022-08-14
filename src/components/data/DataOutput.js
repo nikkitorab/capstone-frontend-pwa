@@ -6,12 +6,12 @@ import Trigger from "../triggers/Trigger";
 import SignificantData from "./SignificantData";
 
 const DataOutput = (props) => {
-  const triggersData = props.triggersData;
-  const symptomsData = props.symptomsData;
+  // const triggersData = props.triggersData;
+  // const symptomsData = props.symptomsData;
   const [significantData, setSignificantData] = useState([]);
   // const [mostSignificant, setMostSignificant] = useState([]);
   // const [triggerDataComponents, setTriggerDataComponents] = useState([]);
-  const [triggerName, setTriggerName] = useState("");
+  // const [triggerName, setTriggerName] = useState("");
 
   const [triggerIDs, setTriggerIDs] = useState([]);
 
@@ -34,7 +34,7 @@ const DataOutput = (props) => {
         // setTriggerIDs(triggerIDSet);
         const triggerIDarray = [...triggerIDSet];
         setTriggerIDs(triggerIDarray);
-        console.log(`arr: ${triggerIDarray}`);
+        // console.log(`arr: ${triggerIDarray}`);
       })
       .catch((error) => {
         console.log(`error!!! ${error}`);
@@ -45,31 +45,31 @@ const DataOutput = (props) => {
   // });
 
   // API - GET
-  const getDataFromAPI = () => {
-    axios
-      .get("http://localhost:3000/related-entries/data/sig")
-      .then((response) => {
-        setSignificantData(response.data);
-        console.log(`sig: ${significantData}`);
-      })
-      .catch((error) => {
-        console.log(`error!!! ${error}`);
-      });
-  };
+  // const getDataFromAPI = () => {
+  //   axios
+  //     .get("http://localhost:3000/related-entries/data/sig")
+  //     .then((response) => {
+  //       setSignificantData(response.data);
+  //       console.log(`sig: ${significantData}`);
+  //     })
+  //     .catch((error) => {
+  //       console.log(`error!!! ${error}`);
+  //     });
+  // };
 
-  const getTriggerNameByID = (id) => {
-    axios
-      .get(`http://localhost:3000/triggers/name/${id}`)
-      .then((response) => {
-        // setTriggersData(response.data);
-        console.log(`name from app: ${response.data[0].name}`);
-        // console.log(`id from app: ${response.data.id}`);
-        setTriggerName(response.data[0].name);
-      })
-      .catch((error) => {
-        console.log("cant get ur symptoms :/ ");
-      });
-  };
+  // const getTriggerNameByID = (id) => {
+  //   axios
+  //     .get(`http://localhost:3000/triggers/name/${id}`)
+  //     .then((response) => {
+  //       // setTriggersData(response.data);
+  //       console.log(`name from app: ${response.data[0].name}`);
+  //       // console.log(`id from app: ${response.data.id}`);
+  //       setTriggerName(response.data[0].name);
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur symptoms :/ ");
+  //     });
+  // };
 
   // const getTriggerName = (id) => {
   //   const name = props.getTriggerByIDCallback(id);
@@ -132,10 +132,11 @@ const DataOutput = (props) => {
       <h2>{triggerIDs.length}</h2>
       {/* <button onClick={getIDLists}>DELETE</button> */}
       <section>
-        {triggerIDs.map((id) => (
+        {triggerIDs.map((i) => (
           <SignificantData
-            key={id}
-            trigger_id={id}
+            key={i}
+            trigger_id={i}
+            selectChartCallback={props.selectChartCallback}
             // id={data.id}
             // symptomID={data.symptom_id}
             // triggerID={data.trigger_id}

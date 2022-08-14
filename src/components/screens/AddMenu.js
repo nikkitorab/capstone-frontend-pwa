@@ -1,10 +1,10 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const AddMenu = () => {
-  const location = useLocation();
-  const data = location.state;
-  console.log(data);
+  // const location = useLocation();
+  // const data = location.state;
+  // console.log(data);
   return (
     <div>
       <h1> Add new....</h1>

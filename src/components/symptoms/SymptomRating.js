@@ -1,7 +1,7 @@
 import React from "react";
 // import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const SymptomRating = (props) => {
   const [rating, setRating] = useState("");

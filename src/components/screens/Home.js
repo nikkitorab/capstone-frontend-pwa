@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+// import Chart from "../data/Chart";
 
 const Home = (props) => {
   // const location = useLocation();
@@ -11,6 +11,7 @@ const Home = (props) => {
   return (
     <div>
       <h1> homeeeeee</h1>
+      {/* <Chart></Chart> */}
     </div>
   );
 };

@@ -12,6 +12,8 @@ import Lists from "./components/screens/Lists";
 import AddMenu from "./components/screens/AddMenu";
 
 import DataOutput from "./components/data/DataOutput";
+import Chart from "./components/data/Chart";
+
 // import DataO from "./components/screens/Settings";
 import SymptomEntries from "./components/symptoms/SymptomEntries";
 
@@ -84,7 +86,7 @@ const App = () => {
       .get(`http://localhost:3000/triggers/name/${id}`)
       .then((response) => {
         // setTriggersData(response.data);
-        console.log(`name from app: ${response.body.name}`);
+        // console.log(`name from app: ${response.body.name}`);
         // console.log(`id from app: ${response.data.id}`);
         return response.data.name;
       })
@@ -105,20 +107,20 @@ const App = () => {
       });
   };
 
-  // API - DELETE
-  const deleteTrigger = (id) => {
-    axios
-      .delete(`http://localhost:3000/triggers/${id}`)
-      .then((response) => {
-        const updatedTriggers = triggersData.filter(
-          (trigger) => trigger.id !== id
-        );
-        setTriggersData(updatedTriggers);
-      })
-      .catch((error) => {
-        console.log("Unable to delete");
-      });
-  };
+  // // API - DELETE
+  // const deleteTrigger = (id) => {
+  //   axios
+  //     .delete(`http://localhost:3000/triggers/${id}`)
+  //     .then((response) => {
+  //       const updatedTriggers = triggersData.filter(
+  //         (trigger) => trigger.id !== id
+  //       );
+  //       setTriggersData(updatedTriggers);
+  //     })
+  //     .catch((error) => {
+  //       console.log("Unable to delete");
+  //     });
+  // };
 
   // const [entries, setEntries] = useState[[]];
   // // useEffect(() => {
@@ -138,7 +140,7 @@ const App = () => {
         triggersData={triggersData}
         getTriggersCallback={getTriggersFromAPI}
         addNewTriggerCallback={addNewTrigger}
-        deleteTriggerCallback={deleteTrigger}
+        // deleteTriggerCallback={deleteTrigger}
       ></Lists>
     ); // add props
     setSelectedScreen(listsScreen);
@@ -151,12 +153,27 @@ const App = () => {
     console.log("selected add");
   };
 
+  const selectChart = (chartData) => {
+    const chartScreen = (
+      <Chart
+        chartData={chartData}
+        // trigger_id={trigger_id}
+        // getTriggerByIDCallback={getTriggerNameByID}
+        // getEntriesDataCallback={getEntriesData}
+        // data={entriesData}
+      ></Chart>
+    );
+    setSelectedScreen(chartScreen);
+    console.log("selected data");
+  };
+
   const selectData = () => {
     const dataScreen = (
       <DataOutput
         symptomsData={symptomsData}
         triggersData={triggersData}
         getTriggerByIDCallback={getTriggerNameByID}
+        selectChartCallback={selectChart}
         // getEntriesDataCallback={getEntriesData}
         // data={entriesData}
       ></DataOutput>
