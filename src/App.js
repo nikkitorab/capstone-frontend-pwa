@@ -164,7 +164,6 @@ const App = () => {
       ></Chart>
     );
     setSelectedScreen(chartScreen);
-    console.log("selected data");
   };
 
   const selectData = () => {

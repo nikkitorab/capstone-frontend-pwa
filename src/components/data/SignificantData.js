@@ -104,7 +104,8 @@ const SignificantData = (props) => {
       const data = {
         // symptom: symptomNames[i], // get symptom name from symptom id
         trigger: triggerName,
-        trigger_id: d.trigger_id
+        trigger_id: d.trigger_id,
+        symptom_id: d.symptom_id,
         absent_mean: d.absent_mean,
         present_mean: d.present_mean,
         cohens_d: d.cohens_d,
