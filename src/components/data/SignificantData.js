@@ -9,6 +9,7 @@ const SignificantData = (props) => {
   // const [symptomNames, setSymptomNames] = useState([]);
 
   const trigger_id = props.trigger_id;
+  // const symptomNames = props.symptomNames;
 
   // selectChartCallback
 
@@ -21,7 +22,7 @@ const SignificantData = (props) => {
   const viewData = () => {
     // console.log("button clicked!");
     const chartData = getChartData();
-    props.selectChartCallback(chartData);
+    props.selectChartCallback(chartData, props.symptomNames);
   };
 
   const getTriggerNameByID = () => {
@@ -81,7 +82,26 @@ const SignificantData = (props) => {
         // console.log(`name from app: ${response.data[0].name}`);
         // console.log(`id from app: ${response.data.id}`);
         // console.log(response.data);
-        setTriggerData(response.data);
+        const data = [];
+        for (const row of response.data) {
+          // const id = row.id
+          const rowData = {};
+          const name = props.symptomNames[row.symptom_id];
+          rowData["id"] = row.id;
+          // rowData["symptom_id"] = row.symptom_id; present_mean
+          rowData["trigger_id"] = row.trigger_id;
+          rowData["present_mean"] = row.present_mean;
+          rowData["absent_mean"] = row.absent_mean;
+          rowData["cohens_d"] = row.cohens_d;
+          rowData["symptom_id"] = row.symptom_id;
+          rowData["symptomName"] = name;
+          data.push(rowData);
+        }
+        console.log("!!!!!");
+        console.log(data);
+
+        // setTriggerData(response.data);
+        setTriggerData(data);
         // getAllSymptomNames(response.data);
         // getAllSymptomNames()
         // getChartData(response.data);
@@ -101,8 +121,10 @@ const SignificantData = (props) => {
       // get symptom name from symptom id
       // getSymptomNameByID(d.symptom_id);
 
+      // console.log(`names: ${props.symptomNames[0][67]}`);
+
       const data = {
-        // symptom: symptomNames[i], // get symptom name from symptom id
+        symptomName: props.symptomNames[d.symptom_id], // get symptom name from symptom id
         trigger: triggerName,
         trigger_id: d.trigger_id,
         symptom_id: d.symptom_id,

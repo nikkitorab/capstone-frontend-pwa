@@ -60,46 +60,48 @@ import {
 // ];
 
 const Chart = (props) => {
-  const [symptomNames, setSymptomNames] = useState([]);
+  // const [symptomNames, setSymptomNames] = useState([]);
 
   const data = props.chartData;
+  // console.log(props.chartData)
+  // const symptomNames = props.symptomNames;
   // console.log(`dddd ${data}`);
 
-  const getSymptomNameByID = (id) => {
-    // const id = props.id;
-    axios
-      .get(`http://localhost:3000/symptoms/name/${id}`)
-      .then((response) => {
-        // setTriggersData(response.data);
-        // console.log(`name from app: ${response.data[0].name}`);
-        // console.log(`id from app: ${response.data.id}`);
+  // const getSymptomNameByID = (id) => {
+  //   // const id = props.id;
+  //   axios
+  //     .get(`http://localhost:3000/symptoms/name/${id}`)
+  //     .then((response) => {
+  //       // setTriggersData(response.data);
+  //       // console.log(`name from app: ${response.data[0].name}`);
+  //       // console.log(`id from app: ${response.data.id}`);
 
-        const names = [...symptomNames];
-        names.push(response.data[0].name);
-        setSymptomNames(names);
-        // setSymptomName(response.data[0].name);
-      })
-      .catch((error) => {
-        console.log("cant get ur symptoms :/ ");
-      });
+  //       const names = [...symptomNames];
+  //       names.push(response.data[0].name);
+  //       // setSymptomNames(names);
+  //       // setSymptomName(response.data[0].name);
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur symptoms :/ ");
+  //     });
 
-    // getChartData(response.data);
-  };
+  //   // getChartData(response.data);
+  // };
 
-  const getAllSymptomNames = (triggerData) => {
-    for (const t of triggerData) {
-      getSymptomNameByID(t.symptom_id);
-    }
+  // const getAllSymptomNames = (triggerData) => {
+  //   for (const t of triggerData) {
+  //     getSymptomNameByID(t.symptom_id);
+  //   }
 
-    // getChartData(triggerData);
+  //   // getChartData(triggerData);
 
-    //   getSymptomNameByID(id)
-  };
+  //   //   getSymptomNameByID(id)
+  // };
   // export default class Example extends PureComponent {
   // static demoUrl = 'https://codesandbox.io/s/simple-bar-chart-tpz8r';
   return (
     <BarChart
-      width={500}
+      width={800}
       height={300}
       data={data}
       margin={{
@@ -110,7 +112,7 @@ const Chart = (props) => {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="symptom" />
+      <XAxis dataKey="symptomName" />
       <YAxis />
       <Tooltip />
       <Legend />

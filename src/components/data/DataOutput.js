@@ -8,10 +8,11 @@ import SignificantData from "./SignificantData";
 const DataOutput = (props) => {
   // const triggersData = props.triggersData;
   // const symptomsData = props.symptomsData;
-  const [significantData, setSignificantData] = useState([]);
+  // const [significantData, setSignificantData] = useState([]);
   // const [mostSignificant, setMostSignificant] = useState([]);
   // const [triggerDataComponents, setTriggerDataComponents] = useState([]);
   // const [triggerName, setTriggerName] = useState("");
+  const [symptomNames, setSymptomNames] = useState("");
 
   const [triggerIDs, setTriggerIDs] = useState([]);
 
@@ -20,6 +21,7 @@ const DataOutput = (props) => {
   // }, []);
 
   useEffect(() => {
+    getSymptomNames();
     getSignificantTriggerIDs();
   }, []);
 
@@ -45,17 +47,20 @@ const DataOutput = (props) => {
   // });
 
   // API - GET
-  // const getDataFromAPI = () => {
-  //   axios
-  //     .get("http://localhost:3000/related-entries/data/sig")
-  //     .then((response) => {
-  //       setSignificantData(response.data);
-  //       console.log(`sig: ${significantData}`);
-  //     })
-  //     .catch((error) => {
-  //       console.log(`error!!! ${error}`);
-  //     });
-  // };
+  const getSymptomNames = () => {
+    axios
+      .get("http://localhost:3000/symptoms/names")
+      .then((response) => {
+        setSymptomNames(response.data);
+        console.log(`name data: ${response.data[67]}`);
+
+        // setSignificantData(response.data);
+        // console.log(`sig: ${significantData}`);
+      })
+      .catch((error) => {
+        console.log(`error!!! ${error}`);
+      });
+  };
 
   // const getTriggerNameByID = (id) => {
   //   axios
@@ -137,6 +142,7 @@ const DataOutput = (props) => {
             key={i}
             trigger_id={i}
             selectChartCallback={props.selectChartCallback}
+            symptomNames={symptomNames}
             // id={data.id}
             // symptomID={data.symptom_id}
             // triggerID={data.trigger_id}

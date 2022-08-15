@@ -153,10 +153,11 @@ const App = () => {
     console.log("selected add");
   };
 
-  const selectChart = (chartData) => {
+  const selectChart = (chartData, symptomNames) => {
     const chartScreen = (
       <Chart
         chartData={chartData}
+        symptomNames={symptomNames}
         // trigger_id={trigger_id}
         // getTriggerByIDCallback={getTriggerNameByID}
         // getEntriesDataCallback={getEntriesData}
