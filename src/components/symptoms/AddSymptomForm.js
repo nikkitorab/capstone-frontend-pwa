@@ -2,12 +2,14 @@ import React from "react";
 // import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
+const defaultForm = "";
+
 const AddSymptomForm = (props) => {
   // const location = useLocation();
   // const data = location.state;
   // console.log(data);
 
-  const [enteredSymptomText, setEnteredSymptomText] = useState("");
+  const [enteredSymptomText, setEnteredSymptomText] = useState(defaultForm);
 
   // for symptom text input:
   // const symptomInputHandler = (enteredText) => {
@@ -22,13 +24,13 @@ const AddSymptomForm = (props) => {
   };
 
   const handleSymptomSubmission = (event) => {
+    event.preventDefault();
     const postData = {
       name: enteredSymptomText,
       rating_type: "int", // fix later
       user_id: 5, // fix later
     };
 
-    event.preventDefault();
     props.addSymptomCallback(postData);
   };
 

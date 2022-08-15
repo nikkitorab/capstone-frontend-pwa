@@ -15,7 +15,7 @@ import DataOutput from "./components/data/DataOutput";
 import Chart from "./components/data/Chart";
 
 // import DataO from "./components/screens/Settings";
-import SymptomEntries from "./components/symptoms/SymptomEntries";
+import Entries from "./components/screens/Entries";
 
 // import { Link, Route } from "react-router-dom";
 
@@ -60,6 +60,37 @@ const App = () => {
       })
       .catch((error) => {
         console.log("cant get ur symptoms :/ ");
+      });
+    return symptomsData;
+  };
+
+  // API - POST
+  const addNewSymptom = (data) => {
+    console.log(data);
+    axios
+      .post("http://localhost:3000/symptoms", data)
+      .then((response) => {
+        getSymptomsFromAPI();
+        // setSymptomsData(response.data);
+      })
+      .catch((error) => {
+        console.log("COULDN'T MAKE A new symptom ");
+      });
+  };
+
+  // API - DELETE
+  const deleteSymptom = (id) => {
+    // delete all entries associated with the symptom --> deleteEntries
+    axios
+      .delete(`http://localhost:3000/symptoms/${id}`)
+      .then((response) => {
+        const updatedSymptoms = symptomsData.filter(
+          (symptom) => symptom.id !== id
+        );
+        setSymptomsData(updatedSymptoms);
+      })
+      .catch((error) => {
+        console.log("Unable to delete");
       });
   };
 
@@ -107,20 +138,20 @@ const App = () => {
       });
   };
 
-  // // API - DELETE
-  // const deleteTrigger = (id) => {
-  //   axios
-  //     .delete(`http://localhost:3000/triggers/${id}`)
-  //     .then((response) => {
-  //       const updatedTriggers = triggersData.filter(
-  //         (trigger) => trigger.id !== id
-  //       );
-  //       setTriggersData(updatedTriggers);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Unable to delete");
-  //     });
-  // };
+  // API - DELETE
+  const deleteTrigger = (id) => {
+    axios
+      .delete(`http://localhost:3000/triggers/${id}`)
+      .then((response) => {
+        const updatedTriggers = triggersData.filter(
+          (trigger) => trigger.id !== id
+        );
+        setTriggersData(updatedTriggers);
+      })
+      .catch((error) => {
+        console.log("Unable to delete");
+      });
+  };
 
   // const [entries, setEntries] = useState[[]];
   // // useEffect(() => {
@@ -137,10 +168,12 @@ const App = () => {
       <Lists
         symptomsData={symptomsData}
         getSymptomsCallback={getSymptomsFromAPI}
+        addSymptomCallback={addNewSymptom}
+        deleteSymptomCallback={deleteSymptom}
         triggersData={triggersData}
         getTriggersCallback={getTriggersFromAPI}
         addNewTriggerCallback={addNewTrigger}
-        // deleteTriggerCallback={deleteTrigger}
+        deleteTriggerCallback={deleteTrigger}
       ></Lists>
     ); // add props
     setSelectedScreen(listsScreen);
@@ -183,7 +216,14 @@ const App = () => {
   };
 
   const selectEntries = () => {
-    const entryScreen = <SymptomEntries></SymptomEntries>;
+    const entryScreen = (
+      <Entries
+        symptomsData={symptomsData}
+        getSymptomsCallback={getSymptomsFromAPI}
+        triggersData={triggersData}
+        getTriggersCallback={getTriggersFromAPI}
+      ></Entries>
+    );
     setSelectedScreen(entryScreen);
     console.log("selected entry");
   };

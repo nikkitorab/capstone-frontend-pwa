@@ -70,7 +70,7 @@ const TriggersList = (props) => {
     <div>
       <h1> Triggers List!!</h1>
       <section>
-        <AddTriggerForm addTriggerCallback={props.addNewTrigger} />
+        <AddTriggerForm addTriggerCallback={props.addTriggerCallback} />
       </section>
       <section>
         {triggersData.map((trigger) => (
@@ -78,7 +78,7 @@ const TriggersList = (props) => {
             key={trigger.id}
             id={trigger.id}
             name={trigger.name}
-            deleteTriggerCallback={props.deleteTrigger}
+            deleteTriggerCallback={props.deleteTriggerCallback}
           />
         ))}
       </section>

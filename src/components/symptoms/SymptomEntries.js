@@ -4,22 +4,22 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SymptomRating from "./SymptomRating";
 
-const SymptomEntries = () => {
+const SymptomEntries = (props) => {
   // const location = useLocation();
   // const data = location.state;
   // console.log(data);
   // get list of symptoms from api
   //
-  const [symptomsData, setSymptomsData] = useState([]);
+  const [symptomsData, setSymptomsData] = useState(props.symptomsData);
   const [completedEntries, setCompletedEntries] = useState([]);
   // const [lastEntryID, setLastEntryID] = useState("");
   // const [done, setDone] = useState(1);
 
   // const [entriesData, setEntriesData] = useState([]);
 
-  useEffect(() => {
-    getSymptomsFromAPI();
-  }, []);
+  // useEffect(() => {
+  //   getSymptomsFromAPI();
+  // }, []);
 
   // useEffect(() => {
   //   // addRelatedEntries(lastEntryID);
@@ -31,16 +31,16 @@ const SymptomEntries = () => {
   // }, []);
 
   // API - GET
-  const getSymptomsFromAPI = () => {
-    axios
-      .get("http://localhost:3000/symptoms")
-      .then((response) => {
-        setSymptomsData(response.data);
-      })
-      .catch((error) => {
-        console.log("cant get ur symptoms :/ ");
-      });
-  };
+  // const getSymptomsFromAPI = () => {
+  //   axios
+  //     .get("http://localhost:3000/symptoms")
+  //     .then((response) => {
+  //       setSymptomsData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur symptoms :/ ");
+  //     });
+  // };
 
   // const getSymptomEntriesFromAPI = (id) => {
   //   axios

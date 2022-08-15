@@ -52,14 +52,19 @@ const Lists = (props) => {
           <SymptomsList
             symptomsData={props.symptomsData}
             getSymptomsCallback={props.getSymptomsCallback}
-            entries={props.symptomEntries}
-            deleteSympEntriesCallback={props.deleteSympEntriesCallback}
+            addSymptomCallback={props.addSymptomCallback}
+            deleteSymptomCallback={props.deleteSymptomCallback}
+
+            // entries={props.symptomEntries}
+            // deleteSympEntriesCallback={props.deleteSympEntriesCallback}
           ></SymptomsList>
         )}
         {selectedList === "TriggersList" && (
           <TriggersList
             triggersData={props.triggersData}
             getTriggersCallback={props.getTriggersCallback}
+            addTriggerCallback={props.addNewTriggerCallback}
+            deleteTriggerCallback={props.deleteTriggerCallback}
           ></TriggersList>
         )}
       </section>

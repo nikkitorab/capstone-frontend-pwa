@@ -47,7 +47,8 @@ const Symptom = (props) => {
   };
 
   const deleteSymptom = () => {
-    deleteSymptomEntries();
+    // deleteSymptomEntries();
+    console.log(id);
     props.deleteSymptomCallback(id);
     setEntries([]);
   };
