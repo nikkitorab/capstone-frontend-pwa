@@ -19,8 +19,10 @@ const Entries = (props) => {
   // console.log(selectedEntries);
   // const [selectedEntries, setSelectedEntries] = useState("TriggerEntries"); // default
   //BUTTON CLASS FOR COLORS:
-  const [triggersButton, setTriggersButton] = useState("selected");
-  const [symptomsButton, setSymptomsButton] = useState("notSelected");
+  // const [triggersButton, setTriggersButton] = useState("selected");
+  // const [symptomsButton, setSymptomsButton] = useState("notSelected");
+  const [triggersButton, setTriggersButton] = useState("");
+  const [symptomsButton, setSymptomsButton] = useState("");
 
   const [remainingSymptomEntries, setRemainingSymptomEntries] = useState([]);
 
@@ -30,11 +32,24 @@ const Entries = (props) => {
 
   const [completedTriggerEntries, setCompletedTriggerEntries] = useState([]);
 
+  // console.log(`****** PROPS: ${props.selection}`)
+
   useEffect(() => {
+    getButtonColor();
     getCompletedTriggerEntries();
     getCompletedSymptomEntries();
     // getRemainingSymptomEntries();
   }, []);
+
+  const getButtonColor = () => {
+    if (selectedEntries === "TriggerEntries") {
+      setTriggersButton("selected");
+      setSymptomsButton("notSelected");
+    } else {
+      setTriggersButton("notSelected");
+      setSymptomsButton("selected");
+    }
+  };
 
   const getCompletedSymptomEntries = () => {
     axios
@@ -65,6 +80,8 @@ const Entries = (props) => {
         setCompletedTriggerEntries(response.data);
 
         const remaining = [];
+
+        console.log(`******** data.triggersData: ${data.triggersData}`);
 
         for (const trigger of data.triggersData) {
           const id = trigger.id.toString();

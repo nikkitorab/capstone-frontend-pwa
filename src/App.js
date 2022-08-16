@@ -55,11 +55,10 @@ const App = () => {
 
   // console.log(`data: ${symptomsData}`);
 
-  const homeProps = {
-    name: "Some thing",
-    price: 123,
-    // func: testFunc(),
-  };
+  // const homeProps = {
+  //   symptomsData: symptomsData,
+  //   triggersData: triggersData,
+  // };
 
   const listsProps = {
     symptomsData: symptomsData,
@@ -82,15 +81,18 @@ const App = () => {
     triggersData: triggersData,
   };
 
+  // const homeProps = {
+  //   symptomsData: symptomsData,
+  //   triggersData: triggersData,
+  // };
+
   return (
     <div className="App">
       {/* <div className="Nav-Bar"> */}
       <BrowserRouter>
         <Navbar bg="light" variant="light" fixed="bottom">
           <Nav className="me-auto">
-            <Link to="/" data={homeProps}>
-              Home
-            </Link>
+            <Link to="/">Home</Link>
             <Link to="/lists" state={listsProps}>
               Lists
             </Link>
@@ -101,7 +103,7 @@ const App = () => {
               Data
             </Link>
             <Link to="/entries" state={entriesProps}>
-              Settings
+              Entries
             </Link>
           </Nav>
         </Navbar>
