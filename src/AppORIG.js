@@ -28,9 +28,9 @@ const App = () => {
     getTriggersFromAPI();
   }, []);
 
-  const getTriggersData = () => {
-    return triggersData;
-  };
+  // const getTriggersData = () => {
+  //   return triggersData;
+  // };
 
   const selectTriggerEntries = () => {
     const entryScreen = (
@@ -40,7 +40,6 @@ const App = () => {
         getSymptomsCallback={getSymptomsFromAPI}
         triggersData={triggersData}
         getTriggersCallback={getTriggersFromAPI}
-        getTriggersData={getTriggersData}
       ></Entries>
     );
     setSelectedScreen(entryScreen);

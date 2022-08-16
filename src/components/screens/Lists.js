@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 import SymptomsList from "../symptoms/SymptomsList";
 import TriggersList from "../triggers/TriggersList";
+import Stack from "@mui/material/Stack";
 
 import { useLocation } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
@@ -15,6 +16,9 @@ import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
+
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 // import white from "@mui/material/colors/white";
 
@@ -74,19 +78,19 @@ const Lists = (props) => {
   //   console.log(`value: ${event.target}`);
   // };
   const handleChange = (event, newValue) => {
-    if (newValue == 0) {
-      setSelectedList("SymptomsList");
-    } else {
-      setSelectedList("TriggersList");
-    }
+    // console.log(`newValue ${newValue}`);
+    setSelectedList(newValue);
+    // if (newValue == 0) {
+    //   setSelectedList("SymptomsList");
+    // } else {
+    //   setSelectedList("TriggersList");
+    // }
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth="100%">
-        {/* <div> */}
-        {/* <Box sx={{ width: "100%" }} > */}
-        <Box sx={{ borderBottom: 2, borderColor: "divider", width: "100%" }}>
+        {/* <Box sx={{ borderBottom: 2, borderColor: "divider", width: "100%" }}>
           <AppBar color="secondary" position="static">
             <Tabs
               value={selectedList}
@@ -98,18 +102,64 @@ const Lists = (props) => {
               variant="fullWidth"
             >
               <Tab selectedList="SymptomsList" label="Symptoms" />
-              <Divider orientation="vertical" />
-              <Tab selectedList="TriggersList" label="Triggers" />
+              {/* <Divider orientation="vertical" /> */}
+        {/* <Tab selectedList="TriggersList" label="Triggers" />
             </Tabs>
-            {/* <button className={symptomsButton} onClick={selectSymptomsList}>
-          Symptoms
-        </button>
-        <button className={triggersButton} onClick={selectTriggersList}>
-          Triggers
-        </button> */}
           </AppBar>
-        </Box>
-        <section>
+        </Box> */}{" "}
+        <AppBar
+          maxWidth="sm"
+          color="secondary"
+          position="sticky"
+          sx={{
+            // border: 2,
+            borderRadius: "10px",
+            m: "3vw",
+            p: "1vw",
+            width: 1,
+            boxShadow: 3,
+          }}
+        >
+          <Stack
+            spacing={10}
+            justifyContent="center"
+            // alignItems="center"
+            direction="row"
+          >
+            {/* <Container maxWidth="sm"> */}
+            <ToggleButtonGroup
+              value={selectedList}
+              exclusive
+              size="large"
+              onChange={handleChange}
+              color="primary"
+              aria-label="list selection"
+
+              // textAlign="center"
+            >
+              <ToggleButton value="SymptomsList" aria-label="Symptoms">
+                Symptoms
+                {/* <FormatAlignLeftIcon /> */}
+              </ToggleButton>
+
+              <ToggleButton value="TriggersList" aria-label="Triggers">
+                Triggers
+                {/* <FormatAlignCenterIcon /> */}
+              </ToggleButton>
+
+              {/* <ToggleButton value="right" aria-label="right aligned">
+        <FormatAlignRightIcon />
+      </ToggleButton>
+      <ToggleButton value="justify" aria-label="justified" disabled>
+        <FormatAlignJustifyIcon />
+      </ToggleButton> */}
+            </ToggleButtonGroup>
+          </Stack>
+          {/* </Container> */}
+        </AppBar>
+        {/* <section> */}
+        {/* <Stack spacing={10} justifyContent="center" alignItems="center"> */}
+        <Box>
           {selectedList === "SymptomsList" && (
             <SymptomsList
               symptomsData={data.symptomsData}
@@ -129,7 +179,9 @@ const Lists = (props) => {
               // deleteTriggerCallback={props.deleteTriggerCallback}
             ></TriggersList>
           )}
-        </section>
+        </Box>
+        {/* </section> */}
+        {/* </Stack> */}
       </Container>
     </ThemeProvider>
   );

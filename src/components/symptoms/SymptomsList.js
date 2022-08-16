@@ -4,6 +4,8 @@ import Symptom from "./Symptom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AddSymptomForm from "./AddSymptomForm";
+import Stack from "@mui/material/Stack";
+import { Box } from "@mui/system";
 
 const SymptomsList = (props) => {
   const [symptomsData, setSymptomsData] = useState([]);
@@ -64,14 +66,27 @@ const SymptomsList = (props) => {
   };
 
   const symptoms = symptomsData.map((symptom) => (
-    <Symptom
-      key={symptom.id}
-      id={symptom.id}
-      name={symptom.name}
-      // entries={props.symptomEntries}
-      deleteSymptomCallback={deleteSymptom}
-      // deleteSympEntriesCallback={props.deleteSympEntriesCallback}
-    />
+    <Box
+      sx={{
+        border: 2,
+        borderRadius: "16px",
+        // m: "20px",
+        m: "1vw",
+        p: "1.5vw",
+        // p: "20px",
+        width: 0.7,
+        boxShadow: 3,
+      }}
+    >
+      <Symptom
+        key={symptom.id}
+        id={symptom.id}
+        name={symptom.name}
+        // entries={props.symptomEntries}
+        deleteSymptomCallback={deleteSymptom}
+        // deleteSympEntriesCallback={props.deleteSympEntriesCallback}
+      />
+    </Box>
   ));
 
   // // API - POST
@@ -100,19 +115,11 @@ const SymptomsList = (props) => {
       <section>
         <AddSymptomForm addSymptomCallback={addNewSymptom} />
       </section>
-      <section>
+      {/* <section>{symptoms}</section> */}
+
+      <Stack spacing={2.5} justifyContent="center" alignItems="center">
         {symptoms}
-        {/* {symptomsData.map((symptom) => (
-          <Symptom
-            key={symptom.id}
-            id={symptom.id}
-            name={symptom.name}
-            // entries={props.symptomEntries}
-            deleteSymptomCallback={props.deleteSymptomCallback}
-            // deleteSympEntriesCallback={props.deleteSympEntriesCallback}
-          />
-        ))} */}
-      </section>
+      </Stack>
     </div>
   );
 };
