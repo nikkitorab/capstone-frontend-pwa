@@ -6,7 +6,7 @@ import axios from "axios";
 import AddSymptomForm from "./AddSymptomForm";
 
 const SymptomsList = (props) => {
-  // const [symptomsData, setSymptomsData] = useState(props.symptomsData);
+  const [symptomsData, setSymptomsData] = useState([]);
   // const location = useLocation();
   // const data = location.state;
   // console.log(data);
@@ -18,29 +18,58 @@ const SymptomsList = (props) => {
   //state for symptoms
   // const [symptomsData, setSymptomsData] = useState([]);
 
-  // useEffect(() => {
-  //   getSymptomsFromAPI();
-  // }, []);
+  useEffect(() => {
+    getSymptomsFromAPI();
+  }, []);
 
-  // // API - GET
-  // const getSymptomsFromAPI = () => {
-  //   axios
-  //     .get("http://localhost:3000/symptoms")
-  //     .then((response) => {
-  //       setSymptomsData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log("cant get ur symptoms :/ ");
-  //     });
-  // };
+  // API - GET
+  const getSymptomsFromAPI = () => {
+    axios
+      .get("http://localhost:3000/symptoms")
+      .then((response) => {
+        setSymptomsData(response.data);
+      })
+      .catch((error) => {
+        console.log("cant get ur symptoms :/ ");
+      });
+  };
 
-  const symptoms = props.symptomsData.map((symptom) => (
+  const addNewSymptom = (data) => {
+    console.log(data);
+    axios
+      .post("http://localhost:3000/symptoms", data)
+      .then((response) => {
+        getSymptomsFromAPI();
+        // setSymptomsData(response.data);
+      })
+      .catch((error) => {
+        console.log("COULDN'T MAKE A new symptom ");
+      });
+  };
+
+  // API - DELETE
+  const deleteSymptom = (id) => {
+    // delete all entries associated with the symptom --> deleteEntries
+    axios
+      .delete(`http://localhost:3000/symptoms/${id}`)
+      .then((response) => {
+        const updatedSymptoms = symptomsData.filter(
+          (symptom) => symptom.id !== id
+        );
+        setSymptomsData(updatedSymptoms);
+      })
+      .catch((error) => {
+        console.log("Unable to delete");
+      });
+  };
+
+  const symptoms = symptomsData.map((symptom) => (
     <Symptom
       key={symptom.id}
       id={symptom.id}
       name={symptom.name}
       // entries={props.symptomEntries}
-      deleteSymptomCallback={props.deleteSymptomCallback}
+      deleteSymptomCallback={deleteSymptom}
       // deleteSympEntriesCallback={props.deleteSympEntriesCallback}
     />
   ));
@@ -58,21 +87,6 @@ const SymptomsList = (props) => {
   //     });
   // };
 
-  // // API - DELETE
-  // const deleteSymptom = (id) => {
-  //   // delete all entries associated with the symptom --> deleteEntries
-  //   axios
-  //     .delete(`http://localhost:3000/symptoms/${id}`)
-  //     .then((response) => {
-  //       const updatedSymptoms = symptomsData.filter(
-  //         (symptom) => symptom.id !== id
-  //       );
-  //       setSymptomsData(updatedSymptoms);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Unable to delete");
-  //     });
-  // };
   // const symptomsData = props.symptomsData
   // const addSymptom = (data) => {
   //   props.addSymptomCallback(data);
@@ -84,7 +98,7 @@ const SymptomsList = (props) => {
     <div>
       <h1> SymptomsList!!</h1>
       <section>
-        <AddSymptomForm addSymptomCallback={props.addSymptomCallback} />
+        <AddSymptomForm addSymptomCallback={addNewSymptom} />
       </section>
       <section>
         {symptoms}

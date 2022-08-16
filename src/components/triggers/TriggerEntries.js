@@ -5,21 +5,24 @@ import axios from "axios";
 import TriggerPresent from "./TriggerPresent";
 
 const TriggerEntries = (props) => {
-  // const location = useLocation();
-  // const data = location.state;
-  // console.log(data);
-  // get list of symptoms from api
-  //
-  const [triggersData, setTriggersData] = useState(props.triggersData);
-  const [completedEntries, setCompletedEntries] = useState([]);
-  // const [lastEntryID, setLastEntryID] = useState("");
-  // const [done, setDone] = useState(1);
-
-  // const [entriesData, setEntriesData] = useState([]);
+  // const [triggersData, setTriggersData] = useState([]);
+  // const [completedEntries, setCompletedEntries] = useState([]);
 
   // useEffect(() => {
-  //   getSymptomsFromAPI();
+  //   getTriggersFromAPI();
   // }, []);
+
+  // const getTriggersFromAPI = () => {
+  //   axios
+  //     .get("http://localhost:3000/triggers")
+  //     .then((response) => {
+  //       setTriggersData(response.data);
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur triggers :/ ");
+  //     });
+  // };
 
   // useEffect(() => {
   //   // addRelatedEntries(lastEntryID);
@@ -63,13 +66,12 @@ const TriggerEntries = (props) => {
       .then((response) => {
         // remove symptom from to-do list
         // console.log(`response: ${response}`);
-        const updatedTriggers = triggersData.filter(
-          (trigger) => trigger.id !== triggerID
-        );
-
-        console.log(`response: ${response.data.id}`);
-        // setLastEntryID(response.data.id);
-        return response.data.id;
+        // const updatedTriggers = triggersData.filter(
+        //   (trigger) => trigger.id !== triggerID
+        // );
+        // console.log(`response: ${response.data.id}`);
+        // // setLastEntryID(response.data.id);
+        // return response.data.id;
       })
       .catch((error) => {
         console.log("COULDN'T MAKE A new trigger entry");
@@ -88,7 +90,7 @@ const TriggerEntries = (props) => {
     <div>
       <h1> trigger entries!!!!!</h1>
       <section>
-        {triggersData.map((trigger) => (
+        {props.remainingEntries.map((trigger) => (
           <TriggerPresent
             key={trigger.id}
             id={trigger.id}
@@ -99,9 +101,9 @@ const TriggerEntries = (props) => {
       </section>
       <section>
         <h2>Completed:</h2>
-        {completedEntries.map((entry) => (
+        {Object.entries(props.completedEntries).map((entry) => (
           <section>
-            <h3>{entry.id}</h3>
+            <h3>{entry[1]}</h3>
             <button onClick={editEntry}>EDIT</button>
           </section>
         ))}

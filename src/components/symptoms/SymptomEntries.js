@@ -10,15 +10,29 @@ const SymptomEntries = (props) => {
   // console.log(data);
   // get list of symptoms from api
   //
-  const [symptomsData, setSymptomsData] = useState(props.symptomsData);
-  const [completedEntries, setCompletedEntries] = useState([]);
+  // const [remainingEntries, setRemainingEntries] = useState(
+  //   props.remainingSymptomEntries
+  // );
+  // const [remainingEntries, setRemainingEntries] = useState(
+  //   props.remainingEntries
+  // );
+  // const [completedEntries, setCompletedEntries] = useState(
+  //   props.completedEntries
+  // );
+  // console.log(remainingEntries);
+  // const [completedEntries, setCompletedEntries] = useState(
+  //   props.completedSymptomEntries
+  // );
   // const [lastEntryID, setLastEntryID] = useState("");
   // const [done, setDone] = useState(1);
 
-  // const [entriesData, setEntriesData] = useState([]);
+  // const [completedEntriesList, setCompletedEntriesList] = useState(
+  //   props.completedEntries.entries()
+  // );
 
   // useEffect(() => {
-  //   getSymptomsFromAPI();
+  //   setCompletedEntriesList
+  //   // getRemainingSymptomEntries();
   // }, []);
 
   // useEffect(() => {
@@ -35,7 +49,47 @@ const SymptomEntries = (props) => {
   //   axios
   //     .get("http://localhost:3000/symptoms")
   //     .then((response) => {
-  //       setSymptomsData(response.data);
+  //       setRemainingEntries(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur symptoms :/ ");
+  //     });
+  // };
+
+  // const getCompletedSymptomEntries = () => {
+  //   axios
+  //     .get("http://localhost:3000/completed/symptoms")
+  //     .then((response) => {
+  //       setCompletedEntries(response.data);
+
+  //       const remaining = [];
+
+  //       for (const symptom of props.symptomsData) {
+  //         const id = symptom.id.toString();
+  //         if (!response.data[id]) {
+  //           console.log("*********");
+  //           remaining.push(symptom);
+  //         }
+  //       }
+  //       setRemainingEntries(remaining);
+  //     })
+  //     .catch((error) => {
+  //       console.log("cant get ur symptoms :/ ");
+  //     });
+  // };
+
+  // const getRemainingSymptomEntries = () => {
+  //   axios
+  //     .get("http://localhost:3000/symptoms")
+  //     .then((response) => {
+  //       const remaining = [];
+  //       for (const symptom of response.data) {
+  //         const id = symptom.id.toString();
+  //         if (!completedEntries[id]) {
+  //           remaining.push(symptom);
+  //         }
+  //       }
+  //       setRemainingEntries(remaining);
   //     })
   //     .catch((error) => {
   //       console.log("cant get ur symptoms :/ ");
@@ -57,19 +111,20 @@ const SymptomEntries = (props) => {
 
   // API - POST
   const addSymptomEntryAPI = (data) => {
-    const symptomID = data.symptom_id;
+    // const symptomID = data.symptom_id;
     return axios
       .post("http://localhost:3000/symptom-entries", data)
       .then((response) => {
+        // getCompletedSymptomEntries();
+        // getRemainingSymptomEntries();
         // remove symptom from to-do list
         // console.log(`response: ${response}`);
-        const updatedSymptoms = symptomsData.filter(
-          (symptom) => symptom.id !== symptomID
-        );
-
-        console.log(`response: ${response.data.id}`);
-        // setLastEntryID(response.data.id);
-        return response.data.id;
+        // const updatedSymptoms = symptomsData.filter(
+        //   (symptom) => symptom.id !== symptomID
+        // );
+        // console.log(`response: ${response.data.id}`);
+        // // setLastEntryID(response.data.id);
+        // return response.data.id;
       })
       .catch((error) => {
         console.log("COULDN'T MAKE A new symptom entry");
@@ -83,12 +138,13 @@ const SymptomEntries = (props) => {
   const editEntry = () => {
     console.log("u wanna edit ur entry");
   };
+  console.log(`remainingEntries: ${props.completedEntries}`);
 
   return (
     <div>
       <h1> SymptomEntries!!!!!</h1>
       <section>
-        {symptomsData.map((symptom) => (
+        {props.remainingEntries.map((symptom) => (
           <SymptomRating
             key={symptom.id}
             id={symptom.id}
@@ -99,9 +155,9 @@ const SymptomEntries = (props) => {
       </section>
       <section>
         <h2>Completed:</h2>
-        {completedEntries.map((entry) => (
+        {Object.entries(props.completedEntries).map((entry) => (
           <section>
-            <h3>{entry.id}</h3>
+            <h3>{entry[1]}</h3>
             <button onClick={editEntry}>EDIT</button>
           </section>
         ))}

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import SymptomsList from "../symptoms/SymptomsList";
 import TriggersList from "../triggers/TriggersList";
 
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Lists = (props) => {
   const [selectedList, setSelectedList] = useState("SymptomsList"); // default
@@ -21,8 +21,8 @@ const Lists = (props) => {
 
   // const deleteSymptomEntriesCallback={deleteSymptomEntries}
 
-  // const location = useLocation();
-  // const data = location.state;
+  const location = useLocation();
+  const data = location.state;
   // console.log(data);
 
   const selectSymptomsList = () => {
@@ -50,10 +50,10 @@ const Lists = (props) => {
       <section>
         {selectedList === "SymptomsList" && (
           <SymptomsList
-            symptomsData={props.symptomsData}
-            getSymptomsCallback={props.getSymptomsCallback}
-            addSymptomCallback={props.addSymptomCallback}
-            deleteSymptomCallback={props.deleteSymptomCallback}
+            symptomsData={data.symptomsData}
+            // getSymptomsCallback={props.getSymptomsCallback}
+            // addSymptomCallback={props.addSymptomCallback}
+            // deleteSymptomCallback={props.deleteSymptomCallback}
 
             // entries={props.symptomEntries}
             // deleteSympEntriesCallback={props.deleteSympEntriesCallback}
@@ -61,10 +61,10 @@ const Lists = (props) => {
         )}
         {selectedList === "TriggersList" && (
           <TriggersList
-            triggersData={props.triggersData}
-            getTriggersCallback={props.getTriggersCallback}
-            addTriggerCallback={props.addNewTriggerCallback}
-            deleteTriggerCallback={props.deleteTriggerCallback}
+            triggersData={data.triggersData}
+            // getTriggersCallback={props.getTriggersCallback}
+            // addTriggerCallback={props.addNewTriggerCallback}
+            // deleteTriggerCallback={props.deleteTriggerCallback}
           ></TriggersList>
         )}
       </section>

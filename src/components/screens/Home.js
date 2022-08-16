@@ -8,9 +8,14 @@ const Home = (props) => {
   // const f = location.state.func;
   // const fun = data.func;
   // f();
+  const triggerEntries = () => {
+    props.triggerEntriesCallback();
+  };
+
   return (
     <div>
       <h1> homeeeeee</h1>
+      <button onClick={triggerEntries}>Trigger Entries</button>
       {/* <Chart></Chart> */}
     </div>
   );
