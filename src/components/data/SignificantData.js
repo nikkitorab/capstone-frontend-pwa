@@ -1,12 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Chart from "./Chart";
 
 const SignificantData = (props) => {
   const [triggerName, setTriggerName] = useState("");
   const [triggerData, setTriggerData] = useState([]);
+
+  const [showChart, setShowChart] = useState(false);
+  const [chartData, setChartData] = useState("");
   // const [chartData, setChartData] = useState([]);
-  // const [symptomNames, setSymptomNames] = useState([]);
+  const [symptomNames, setSymptomNames] = useState(props.symptomNames);
 
   const trigger_id = props.trigger_id;
   // const symptomNames = props.symptomNames;
@@ -19,10 +23,16 @@ const SignificantData = (props) => {
     // getChartData();
   }, []);
 
+  const toggleChart = () => {
+    setShowChart(!showChart);
+  };
+
   const viewData = () => {
-    // console.log("button clicked!");
-    const chartData = getChartData();
-    props.selectChartCallback(chartData, props.symptomNames);
+    // const chartData = getChartData();
+    getChartData();
+    toggleChart();
+    // setShowChart(!showChart);
+    // props.selectChartCallback(chartData, props.symptomNames);
   };
 
   const getTriggerNameByID = () => {
@@ -135,7 +145,8 @@ const SignificantData = (props) => {
       chartData.push(data);
       // i += 1;
     }
-    return chartData;
+    // return chartData;
+    setChartData(chartData);
     // setChartData(chartData);
     // console.log(`@@ ${chartData}`);
   };
@@ -146,6 +157,27 @@ const SignificantData = (props) => {
     <div>
       {/* <h1>{triggerName}</h1> */}
       <button onClick={viewData}>{triggerName}</button>
+      {/* {showChart ? (
+        <Chart
+          // toggle={toggleChart}
+          chartData={chartData}
+          symptomNames={symptomNames}
+          // trigger_id={trigger_id}
+          // getTriggerByIDCallback={getTriggerNameByID}
+          // getEntriesDataCallback={getEntriesData}
+          // data={entriesData}
+        ></Chart>
+      ) : null} */}
+      {showChart && (
+        <Chart
+          chartData={chartData}
+          symptomNames={symptomNames}
+          // trigger_id={trigger_id}
+          // getTriggerByIDCallback={getTriggerNameByID}
+          // getEntriesDataCallback={getEntriesData}
+          // data={entriesData}
+        ></Chart>
+      )}
     </div>
   );
 };

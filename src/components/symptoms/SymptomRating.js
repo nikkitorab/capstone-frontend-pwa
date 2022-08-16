@@ -26,7 +26,7 @@ const SymptomRating = (props) => {
       rating: rating, // fix later
     };
     event.preventDefault();
-    console.log("here 1");
+    // console.log("here 1");
     props.addEntryCallback(postData);
   };
   //

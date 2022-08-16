@@ -97,6 +97,74 @@ const Entries = (props) => {
       });
   };
 
+  const addSymptomEntryAPI = (data) => {
+    const symptomID = data.symptom_id;
+    let symptomName = "";
+    for (const symptom of remainingSymptomEntries) {
+      const id = symptom.id;
+      if (symptomID == id) {
+        symptomName = symptom.name;
+        break;
+      }
+    }
+    console.log(`iiiiid: ${symptomID}`);
+    axios
+      .post("http://localhost:3000/symptom-entries", data)
+      .then((response) => {
+        // getCompletedSymptomEntries();
+        console.log("!!!!!!!!!!!!!!!!!!!!!");
+
+        const completed = { ...completedSymptomEntries };
+        // const remaining = { ...remainingSymptomEntries };
+
+        completed[symptomID] = symptomName;
+        // const s = JSON.stringify(completed);
+
+        // console.log(`******* COMPLETED: ${s}`);
+        setCompletedSymptomEntries(completed);
+        // const ss = JSON.stringify(completedSymptomEntries);
+        // console.log(`******* STATE: ${ss}`);
+
+        // const remaining = [];
+        const remaining = remainingSymptomEntries.filter(
+          (symptom) => symptom.symptom_id != symptomID
+        );
+        setRemainingSymptomEntries(remaining);
+
+        // for (const symptom of remainingSymptomEntries) {
+        //   if (symptom.symptom_id != symptomID) {
+        //     remaining.push(symptom);
+        //   }
+        // }
+        // setRemainingSymptomEntries(remaining);
+
+        // data.symptom_id
+
+        // completedSymptomEntries[data.symptom_id]
+
+        // for(const entry of completedSymptomEntries){
+
+        // }
+
+        // getRemainingSymptomEntries();
+        // remove symptom from to-do list
+        // console.log(`response: ${response}`);
+        // const updatedSymptoms = symptomsData.filter(
+        //   (symptom) => symptom.id !== symptomID
+        // );
+        // console.log(`response: ${response.data.id}`);
+        // // setLastEntryID(response.data.id);
+        // return response.data.id;
+      })
+      .catch((error) => {
+        console.log("COULDN'T MAKE A new symptom entry");
+      });
+
+    // const relatedData = { symptomEntryID };
+
+    // add related entries
+  };
+
   // const getCompletedSymptomEntries = () => {
   //   axios
   //     .get("http://localhost:3000/completed/symptoms")
@@ -189,6 +257,7 @@ const Entries = (props) => {
           <SymptomEntries
             remainingEntries={remainingSymptomEntries}
             completedEntries={completedSymptomEntries}
+            addEntryCallback={addSymptomEntryAPI}
             // symptomsData={data.symptomsData}
             // getSymptomsCallback={props.getSymptomsCallback}
             // addSymptomCallback={props.addSymptomCallback}

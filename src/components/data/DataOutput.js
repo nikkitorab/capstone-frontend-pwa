@@ -134,7 +134,7 @@ const DataOutput = (props) => {
   return (
     <div>
       <h1> DataOutput!!!!!</h1>
-      <h2>{triggerIDs.length}</h2>
+      {/* <h2>{triggerIDs.length}</h2> */}
       {/* <button onClick={getIDLists}>DELETE</button> */}
       <section>
         {triggerIDs.map((i) => (

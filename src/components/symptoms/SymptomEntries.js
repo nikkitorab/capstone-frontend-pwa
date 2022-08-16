@@ -110,29 +110,32 @@ const SymptomEntries = (props) => {
   // };
 
   // API - POST
-  const addSymptomEntryAPI = (data) => {
-    // const symptomID = data.symptom_id;
-    return axios
-      .post("http://localhost:3000/symptom-entries", data)
-      .then((response) => {
-        // getCompletedSymptomEntries();
-        // getRemainingSymptomEntries();
-        // remove symptom from to-do list
-        // console.log(`response: ${response}`);
-        // const updatedSymptoms = symptomsData.filter(
-        //   (symptom) => symptom.id !== symptomID
-        // );
-        // console.log(`response: ${response.data.id}`);
-        // // setLastEntryID(response.data.id);
-        // return response.data.id;
-      })
-      .catch((error) => {
-        console.log("COULDN'T MAKE A new symptom entry");
-      });
+  // const addSymptomEntryAPI = (data) => {
+  //   // const symptomID = data.symptom_id;
+  //   return axios
+  //     .post("http://localhost:3000/symptom-entries", data)
+  //     .then((response) => {
+  //       // getCompletedSymptomEntries();
+  //       // getRemainingSymptomEntries();
+  //       // remove symptom from to-do list
+  //       // console.log(`response: ${response}`);
+  //       // const updatedSymptoms = symptomsData.filter(
+  //       //   (symptom) => symptom.id !== symptomID
+  //       // );
+  //       // console.log(`response: ${response.data.id}`);
+  //       // // setLastEntryID(response.data.id);
+  //       // return response.data.id;
+  //     })
+  //     .catch((error) => {
+  //       console.log("COULDN'T MAKE A new symptom entry");
+  //     });
 
-    // const relatedData = { symptomEntryID };
+  //   // const relatedData = { symptomEntryID };
 
-    // add related entries
+  //   // add related entries
+  // };
+  const addEntry = (data) => {
+    props.addEntryCallback(data);
   };
 
   const editEntry = () => {
@@ -149,7 +152,7 @@ const SymptomEntries = (props) => {
             key={symptom.id}
             id={symptom.id}
             name={symptom.name}
-            addEntryCallback={addSymptomEntryAPI}
+            addEntryCallback={addEntry}
           />
         ))}
       </section>

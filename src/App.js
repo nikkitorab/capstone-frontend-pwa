@@ -102,9 +102,9 @@ const App = () => {
             <Link to="/data" state={dataProps}>
               Data
             </Link>
-            <Link to="/entries" state={entriesProps}>
+            {/* <Link to="/entries" state={entriesProps}>
               Entries
-            </Link>
+            </Link> */}
           </Nav>
         </Navbar>
         <Routes>
@@ -113,7 +113,7 @@ const App = () => {
           <Route path="/data" element={<DataOutput />}></Route>
           {/* <Route path="/settings" element={<Settings />}></Route> */}
           <Route path="/entries" element={<Entries />}></Route>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="*" element={<Home />}></Route>
         </Routes>
       </BrowserRouter>
       {/* </div> */}
