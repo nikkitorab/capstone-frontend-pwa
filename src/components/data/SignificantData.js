@@ -12,12 +12,9 @@ const SignificantData = (props) => {
 
   const [showChart, setShowChart] = useState(false);
   const [chartData, setChartData] = useState("");
-  // const [chartData, setChartData] = useState([]);
   const [symptomNames, setSymptomNames] = useState(props.symptomNames);
 
-  // const [open, setOpen] = useState(false);
 
-  // const handleOpen = () => setOpen(true);
   const handleClose = () => setShowChart(false);
 
   const trigger_id = props.trigger_id;
@@ -33,14 +30,11 @@ const SignificantData = (props) => {
     boxShadow: 24,
     p: 4,
   };
-  // const symptomNames = props.symptomNames;
 
-  // selectChartCallback
 
   useEffect(() => {
     getTriggerNameByID();
     getTriggerData();
-    // getChartData();
   }, []);
 
   const toggleChart = () => {
@@ -48,21 +42,16 @@ const SignificantData = (props) => {
   };
 
   const viewData = () => {
-    // const chartData = getChartData();
     getChartData();
     toggleChart();
-    // setShowChart(!showChart);
-    // props.selectChartCallback(chartData, props.symptomNames);
+
   };
 
   const getTriggerNameByID = () => {
-    // const id = props.id;
     axios
       .get(`http://localhost:3000/triggers/name/${trigger_id}`)
       .then((response) => {
-        // setTriggersData(response.data);
-        // console.log(`name from app: ${response.data[0].name}`);
-        // console.log(`id from app: ${response.data.id}`);
+     
         setTriggerName(response.data[0].name);
       })
       .catch((error) => {
@@ -70,55 +59,19 @@ const SignificantData = (props) => {
       });
   };
 
-  // const getSymptomNameByID = (id) => {
-  //   // const id = props.id;
-  //   axios
-  //     .get(`http://localhost:3000/symptoms/name/${id}`)
-  //     .then((response) => {
-  //       // setTriggersData(response.data);
-  //       // console.log(`name from app: ${response.data[0].name}`);
-  //       // console.log(`id from app: ${response.data.id}`);
-
-  //       const names = [...symptomNames];
-  //       names.push(response.data[0].name);
-  //       setSymptomNames(names);
-  //       // setSymptomName(response.data[0].name);
-  //     })
-  //     .catch((error) => {
-  //       console.log("cant get ur symptoms :/ ");
-  //     });
-
-  //   // getChartData(response.data);
-  // };
-
-  // const getAllSymptomNames = (triggerData) => {
-  //   for (const t of triggerData) {
-  //     getSymptomNameByID(t.symptom_id);
-  //   }
-
-  //   getChartData(triggerData);
-
-  //   //   getSymptomNameByID(id)
-  // };
 
   const getTriggerData = () => {
-    // const id = props.id;
     axios
       .get(
         `http://localhost:3000/related-entries/data/sig/trigger/${trigger_id}`
       )
       .then((response) => {
-        // setTriggersData(response.data);
-        // console.log(`name from app: ${response.data[0].name}`);
-        // console.log(`id from app: ${response.data.id}`);
-        // console.log(response.data);
+      
         const data = [];
         for (const row of response.data) {
-          // const id = row.id
           const rowData = {};
           const name = props.symptomNames[row.symptom_id];
           rowData["id"] = row.id;
-          // rowData["symptom_id"] = row.symptom_id; present_mean
           rowData["trigger_id"] = row.trigger_id;
           rowData["present_mean"] = row.present_mean;
           rowData["absent_mean"] = row.absent_mean;
@@ -130,11 +83,8 @@ const SignificantData = (props) => {
         console.log("!!!!!");
         console.log(data);
 
-        // setTriggerData(response.data);
         setTriggerData(data);
-        // getAllSymptomNames(response.data);
-        // getAllSymptomNames()
-        // getChartData(response.data);
+    
       })
       .catch((error) => {
         console.log("cant get ur symptoms :/ ");
@@ -155,25 +105,14 @@ const SignificantData = (props) => {
         cohens_d: d.cohens_d,
       };
       chartData.push(data);
-      // i += 1;
     }
     // return chartData;
     setChartData(chartData);
-    // setChartData(chartData);
-    // console.log(`@@ ${chartData}`);
+  
   };
 
-  ///data/sig/trigger/:id
-  // relationship between x trigger and your symptoms
-  /// Relationships between "X" and Symptoms
-  //placeholder: these links show the relationship between your symptoms and your triggers based on the data you have provided
-  //These links show the relationship between your symptoms and your triggers, based on the data that you have provided.
-  //Note: only triggers and symptoms with statistically significant relationships are shown.
-  //
-  //
   return (
     <div>
-      {/* <h1>{triggerName}</h1> */}
       <Button variant="outlined" onClick={viewData}>
         {triggerName}
       </Button>
