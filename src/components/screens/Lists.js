@@ -9,18 +9,14 @@ import TriggersList from "../triggers/TriggersList";
 import Stack from "@mui/material/Stack";
 
 import { useLocation } from "react-router-dom";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Divider from "@mui/material/Divider";
 
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-// import white from "@mui/material/colors/white";
 
 const Lists = (props) => {
   const [selectedList, setSelectedList] = useState("SymptomsList"); // default
@@ -28,15 +24,9 @@ const Lists = (props) => {
   const [symptomsButton, setSymptomsButton] = useState("selected");
   const [triggersButton, setTriggersButton] = useState("notSelected");
 
-  //props:
-  // const symptomEntries = props.symptomEntries
-  // dont forget about props.deleteSymptomEntriesCallback
-
-  // const deleteSymptomEntriesCallback={deleteSymptomEntries}
-
+ 
   const location = useLocation();
   const data = location.state;
-  // console.log(data);
 
   const theme = createTheme({
     indicator: {
@@ -70,13 +60,7 @@ const Lists = (props) => {
     setSymptomsButton("notSelected");
   };
 
-  // const handleChange = (event) => {
-  //   setSelectedList(event.value);
-  //   // const str = JSON.stringify(event);
-  //   Object.keys(event).forEach((prop) => console.log(`*** ${prop}`));
-  //   console.log(`event: ${event.toString()}`);
-  //   console.log(`value: ${event.target}`);
-  // };
+
   const handleChange = (event, newValue) => {
     // console.log(`newValue ${newValue}`);
     setSelectedList(newValue);

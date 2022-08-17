@@ -45,9 +45,7 @@ const AddSymptomForm = (props) => {
     <Box
       sx={{
         borderRadius: "16px",
-
         p: "3vw",
-
         boxShadow: 3,
       }}
     >

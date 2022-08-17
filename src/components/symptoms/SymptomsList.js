@@ -71,8 +71,6 @@ const SymptomsList = (props) => {
       sx={{
         border: 2,
         borderRadius: "16px",
-        // m: "20px",
-        // m: "1vw",
         p: "1.5vw",
         // p: "20px",
         width: 0.5,
@@ -83,9 +81,7 @@ const SymptomsList = (props) => {
         key={symptom.id}
         id={symptom.id}
         name={symptom.name}
-        // entries={props.symptomEntries}
         deleteSymptomCallback={deleteSymptom}
-        // deleteSympEntriesCallback={props.deleteSympEntriesCallback}
       />
     </Box>
   ));
