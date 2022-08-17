@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "@mui/material/Button";
 
 const Trigger = (props) => {
   const name = props.name;
@@ -10,8 +11,11 @@ const Trigger = (props) => {
 
   return (
     <div>
-      <h1>{name}</h1>
-      <button onClick={deleteTrigger}>DELETE</button>
+      <h> {name} </h>
+      <Button variant="outlined" onClick={deleteTrigger}>
+        DELETE
+      </Button>
+      {/* <button onClick={deleteTrigger}>DELETE</button> */}
     </div>
   );
 };

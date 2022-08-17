@@ -1,6 +1,9 @@
 import React from "react";
 // import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { Box } from "@mui/system";
+import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
+import IconButton from "@mui/material/IconButton";
 
 const AddTriggerForm = (props) => {
   // const location = useLocation();
@@ -32,17 +35,42 @@ const AddTriggerForm = (props) => {
     props.addTriggerCallback(postData);
   };
 
+  const toggleAddTrigger = () => {
+    props.toggleAddTriggerCallback();
+  };
+
   return (
-    <form onSubmit={handleTriggerSubmission}>
-      <label>Enter a Trigger</label>
-      <input
-        name="name"
-        type="text"
-        value={enteredTriggerText}
-        onChange={triggerInputHandler}
-      />
-      <input type="submit" />
-    </form>
+    <Box
+      sx={{
+        borderRadius: "16px",
+        p: "3vw",
+        boxShadow: 3,
+      }}
+    >
+      <IconButton
+        aria-label="lists"
+        size="smalll"
+        onClick={toggleAddTrigger}
+        sx={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          zIndex: 2000,
+        }}
+      >
+        <DisabledByDefaultOutlinedIcon fontSize="small" />
+      </IconButton>
+      <form onSubmit={handleTriggerSubmission}>
+        <label>Enter a Trigger</label>
+        <input
+          name="name"
+          type="text"
+          value={enteredTriggerText}
+          onChange={triggerInputHandler}
+        />
+        <input type="submit" />
+      </form>
+    </Box>
   );
 };
 

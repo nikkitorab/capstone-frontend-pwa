@@ -12,10 +12,25 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import green from "@mui/material/colors/green";
 import { Box } from "@mui/system";
+import List from "@mui/material/List";
 
 const theme = createTheme({
+  indicator: {
+    backgroundColor: "green",
+  },
   palette: {
-    primary: green,
+    primary: {
+      light: "#60ac5d",
+      main: "#2e7d32",
+      dark: "#004f04",
+      contrastText: "#fff",
+    },
+    secondary: {
+      light: "#cfff95",
+      main: "#9ccc65",
+      dark: "#6b9b37",
+      contrastText: "#000",
+    },
   },
 });
 
@@ -71,8 +86,7 @@ const Home = (props) => {
         for (let key in response.data) {
           ++count;
         }
-        // const numRemaining = symptomsData.length - count;
-        // const entriesCompleted = [numRemaining, symptomsData.length];
+
         setCompletedSymptoms(count);
       })
       .catch((error) => {
@@ -88,8 +102,7 @@ const Home = (props) => {
         for (let key in response.data) {
           ++count;
         }
-        // const numRemaining = triggersData.length - count;
-        // const entriesCompleted = [numRemaining, triggersData.length];
+
         setCompletedTriggers(count);
       })
       .catch((error) => {
@@ -97,94 +110,64 @@ const Home = (props) => {
       });
   };
 
-  // const getTriggersFromAPI = () => {
-  //   axios
-  //     .get("http://localhost:3000/triggers")
-  //     .then((response) => {
-  //       setTriggersData(response.data);
-  //       setTriggerEntriesProps({
-  //         selection: "TriggerEntries",
-  //         symptomsData: symptomsData,
-  //         triggersData: triggersData,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log("cant get ur triggers :/ ");
-  //     });
-  // };
-  // const location = useLocation();
-  // const data = location.state;
-  // const [symptomsData, setSymptomsData] = useState(data.symptomsData);
-  // const [triggersData, setTriggersData] = useState(data.triggersData);
-  // const location = useLocation();
-  // const data = location.state;
-  // console.log(data);
-  // const f = location.state.func;
-  // const fun = data.func;
-  // f();
-  // const triggerEntries = () => {
-  //   props.triggerEntriesCallback();
-  // };
-  // console.log(data.entriesProps);
-  // console.log(data.symptomsData);
-
   return (
     // <div>
     <ThemeProvider theme={theme}>
-      <Container maxWidth="sm">
-        <h1> HOME</h1>
-        {/* <section>
-        <Button variant="contained">
-          <Link to="/entries" state={triggerEntriesProps}>
-            Trigger Entries
-          </Link>
-        </Button>
-      </section> */}
+      <Container
+        maxWidth="sm"
+        sx={{
+          justifyContent: "flex-end",
 
-        {/* <button>
-        <Link to="/entries" state={triggerEntriesProps}>
-          Trigger Entries
-        </Link>
-      </button> */}
-        {/* <button>
-        <Link to="/entries" state={symptomEntriesProps}>
-          Symptom Entries
-        </Link>
-      </button> */}
+          // p: "20px",
+        }}
+      >
+        <h1> Today's Dashboard</h1>
 
-        <Stack spacing={10} justifyContent="center" alignItems="center">
+        <Stack
+          spacing={2}
+          alignItems="center"
+          sx={{
+            mb: 2,
+            display: "flex",
+            flexDirection: "column",
+            height: "80vh",
+            overflow: "hidden",
+            overflowY: "scroll",
+          }}
+        >
+          {/* <List style={{ maxHeight: "100%" }} > */}
           <Box
             sx={{
               border: 2,
               borderRadius: "16px",
               // m: "20px",
-              m: "3vw",
-              p: "3vw",
+              m: "2vw",
+              p: "2vw",
+
               // p: "20px",
               width: 1,
               boxShadow: 3,
             }}
           >
-            <h2>Placeholder text for trigger entries:</h2>
+            <h2>Which triggers did you experience today?</h2>
             <h3>
               completed {completedTriggers}/{triggersData.length}
             </h3>
             <Box
               sx={{
-                // border: 2,
-                // borderRadius: "16px",
-                // m: "15px",
                 m: "2vw",
-                // p: "20px",
-                // width: 1,
-                // boxShadow: 3,
               }}
             >
-              <Button size="large" variant="contained">
+              <Button size="large" variant="outlined">
                 <Link to="/entries" state={triggerEntriesProps}>
                   Trigger Entries
                 </Link>
               </Button>
+              <h4> </h4>
+              <h>
+                Your data insights will be more accurate if you complete all
+                your entries everyday
+              </h>
             </Box>
           </Box>
           {/* </section> */}
@@ -192,13 +175,14 @@ const Home = (props) => {
             sx={{
               border: 2,
               borderRadius: "16px",
-              m: "20px",
-              p: "20px",
+              m: "2vw",
+              p: "2vw",
+              // padding-bottom:
               width: 1,
               boxShadow: 3,
             }}
           >
-            <h2>Placeholder text for symptom entries:</h2>
+            <h2>Which symptoms did you experience today?</h2>
             <h3>
               completed {completedSymptoms}/{symptomsData.length}
             </h3>
@@ -211,25 +195,24 @@ const Home = (props) => {
                 // boxShadow: 3,
               }}
             >
-              <Button size="large" variant="contained">
+              <Button size="large" variant="outlined">
                 <Link to="/entries" state={symptomEntriesProps}>
                   Symptom Entries
                 </Link>
               </Button>
+              <h4> </h4>
+              <h>
+                Your data insights will be more accurate if you complete all
+                your entries everyday
+              </h>
             </Box>
           </Box>
+          {/* </List> */}
         </Stack>
-        {/* <section>
-        <Button variant="contained">
-          <Link to="/entries" state={symptomEntriesProps}>
-            Symptom Entries
-          </Link>
-        </Button>
-      </section> */}
+
         <Routes>
           <Route path="/entries" element={<Entries />}></Route>
         </Routes>
-        {/* </div> */}
       </Container>
     </ThemeProvider>
   );

@@ -2,6 +2,9 @@ import React from "react";
 // import { useLocation } from "react-router-dom";
 import { useState } from "react";
 // import axios from "axios";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Box from "@mui/material/Box";
 
 const TriggerPresent = (props) => {
   const [present, setPresent] = useState("");
@@ -29,25 +32,56 @@ const TriggerPresent = (props) => {
     // console.log("here 1");
     props.addEntryCallback(postData);
   };
+
+  const triggerAbsent = () => {
+    const postData = {
+      trigger_id: id,
+      occurred: false, // fix later
+    };
+    // event.preventDefault();
+    // console.log("here 1");
+    props.addEntryCallback(postData);
+  };
+
+  const triggerPresent = () => {
+    const postData = {
+      trigger_id: id,
+      occurred: true, // fix later
+    };
+    // event.preventDefault();
+    // console.log("here 1");
+    props.addEntryCallback(postData);
+  };
+
   //
   return (
-    <div>
-      {/* <h1>{name}</h1>
-      <button onClick={handleRatingSubmission}>
-        change this to be radio button
-      </button> */}
+    <Box
+      sx={{
+        border: 2,
+        borderRadius: "16px",
+        // m: "20px",
+        m: "1vw",
+        p: "1.5vw",
+        // p: "20px",
+        width: 0.7,
+        boxShadow: 3,
+      }}
+    >
+      <label>{name}</label>
+      <h> </h>
 
-      <form onSubmit={handleSubmission}>
-        <label>{name}</label>
-        <input
-          name="name"
-          type="text"
-          value={present}
-          onChange={inputHandler}
-        />
-        <input type="submit" />
-      </form>
-    </div>
+      <ButtonGroup
+        variant="contained"
+        aria-label="outlined primary button group"
+      >
+        <Button variant="outlined" onClick={triggerAbsent}>
+          Absent
+        </Button>
+        <Button variant="outlined" onClick={triggerPresent}>
+          Present
+        </Button>
+      </ButtonGroup>
+    </Box>
   );
 };
 

@@ -3,8 +3,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SymptomRating from "./SymptomRating";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Box from "@mui/material/Box";
+import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
 
 const SymptomEntries = (props) => {
+  const [selectedList, setSelectedList] = useState("ToDo"); // default
   // const location = useLocation();
   // const data = location.state;
   // console.log(data);
@@ -134,6 +141,16 @@ const SymptomEntries = (props) => {
 
   //   // add related entries
   // };
+  const handleChange = (event, newValue) => {
+    // console.log(`newValue ${newValue}`);
+    setSelectedList(newValue);
+    // if (newValue == 0) {
+    //   setSelectedList("SymptomsList");
+    // } else {
+    //   setSelectedList("TriggersList");
+    // }
+  };
+
   const addEntry = (data) => {
     props.addEntryCallback(data);
   };
@@ -145,26 +162,85 @@ const SymptomEntries = (props) => {
 
   return (
     <div>
-      <h1> SymptomEntries!!!!!</h1>
-      <section>
-        {props.remainingEntries.map((symptom) => (
-          <SymptomRating
-            key={symptom.id}
-            id={symptom.id}
-            name={symptom.name}
-            addEntryCallback={addEntry}
-          />
-        ))}
-      </section>
-      <section>
-        <h2>Completed:</h2>
-        {Object.entries(props.completedEntries).map((entry) => (
-          <section>
-            <h3>{entry[1]}</h3>
-            <button onClick={editEntry}>EDIT</button>
-          </section>
-        ))}
-      </section>
+      <h1> How severe were your symptoms today? </h1>
+      <h>
+        Click the <DisabledByDefaultOutlinedIcon fontSize="small" /> if you
+        didn't experience the symptom today.
+      </h>
+      <h2> </h2>
+      <ToggleButtonGroup
+        value={selectedList}
+        exclusive
+        size="large"
+        onChange={handleChange}
+        color="primary"
+        aria-label="list selection"
+        sx={{
+          p: "2.5vw",
+        }}
+      >
+        <ToggleButton value="ToDo" aria-label="ToDo">
+          To-Do
+          {/* <FormatAlignLeftIcon /> */}
+        </ToggleButton>
+
+        <ToggleButton value="Completed" aria-label="Completed">
+          Completed
+          {/* <FormatAlignCenterIcon /> */}
+        </ToggleButton>
+      </ToggleButtonGroup>
+      {/* <section> */}
+      <Box
+        sx={{
+          // border: 2,
+          borderRadius: "16px",
+          // m: "20px",
+          alignItems: "center",
+          justifyContent: "center",
+          // m: "5vw",
+          p: "1.5vw",
+          // p: "20px",
+          width: 1,
+          boxShadow: 3,
+        }}
+      >
+        {selectedList === "ToDo" && (
+          <Stack spacing={3} justifyContent="center" alignItems="center">
+            {props.remainingEntries.map((symptom) => (
+              <SymptomRating
+                key={symptom.id}
+                id={symptom.id}
+                name={symptom.name}
+                addEntryCallback={addEntry}
+              />
+            ))}
+          </Stack>
+        )}
+        {selectedList === "Completed" && (
+          <Stack spacing={3} justifyContent="center" alignItems="center">
+            {Object.entries(props.completedEntries).map((entry) => (
+              // <section>
+              <Box
+                sx={{
+                  border: 2,
+                  borderRadius: "16px",
+                  // m: "20px",
+                  m: "1vw",
+                  p: "1.5vw",
+                  // p: "20px",
+                  width: 0.7,
+                  boxShadow: 3,
+                }}
+              >
+                <h3>{entry[1]}</h3>
+                {/* <button onClick={editEntry}>EDIT</button>
+          // </section> */}
+              </Box>
+            ))}
+            {/* </section> */}
+          </Stack>
+        )}
+      </Box>
     </div>
   );
 };

@@ -4,7 +4,8 @@ import Trigger from "./Trigger";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AddTriggerForm from "./AddTriggerForm";
-
+import Stack from "@mui/material/Stack";
+import { Box } from "@mui/system";
 const TriggersList = (props) => {
   const [triggersData, setTriggersData] = useState([]);
 
@@ -90,22 +91,74 @@ const TriggersList = (props) => {
       });
   };
 
+  const triggers = triggersData.map((trigger) => (
+    <Box
+      sx={{
+        border: 2,
+        borderRadius: "16px",
+
+        p: "1.5vw",
+        width: 0.5,
+        boxShadow: 3,
+      }}
+    >
+      <Trigger
+        key={trigger.id}
+        id={trigger.id}
+        name={trigger.name}
+        deleteTriggerCallback={deleteTrigger}
+      />
+    </Box>
+  ));
+
   return (
     <div>
-      <h1> Triggers List!!</h1>
-      <section>
-        <AddTriggerForm addTriggerCallback={addNewTrigger} />
-      </section>
-      <section>
-        {triggersData.map((trigger) => (
-          <Trigger
-            key={trigger.id}
-            id={trigger.id}
-            name={trigger.name}
-            deleteTriggerCallback={deleteTrigger}
-          />
-        ))}
-      </section>
+      {/* <h1> Your Symptoms:</h1>
+  
+
+      <Stack
+        spacing={2.5}
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          mb: 2,
+          display: "flex",
+          flexDirection: "column",
+          height: "95vh",
+          overflow: "hidden",
+          overflowY: "scroll",
+        }}
+      >
+        {symptoms}
+      </Stack>
+    </div> */}
+
+      <h1> Your Triggers: </h1>
+      <Stack
+        spacing={2.5}
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          mb: 2,
+          display: "flex",
+          flexDirection: "column",
+          height: "95vh",
+          overflow: "hidden",
+          overflowY: "scroll",
+        }}
+      >
+        {triggers}
+        {/* <section>
+          {triggersData.map((trigger) => (
+            <Trigger
+              key={trigger.id}
+              id={trigger.id}
+              name={trigger.name}
+              deleteTriggerCallback={deleteTrigger}
+            />
+          ))}
+        </section> */}
+      </Stack>
     </div>
   );
 };

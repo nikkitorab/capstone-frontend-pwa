@@ -6,6 +6,7 @@ import axios from "axios";
 import AddSymptomForm from "./AddSymptomForm";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/system";
+import Button from "@mui/material/Button";
 
 const SymptomsList = (props) => {
   const [symptomsData, setSymptomsData] = useState([]);
@@ -71,10 +72,10 @@ const SymptomsList = (props) => {
         border: 2,
         borderRadius: "16px",
         // m: "20px",
-        m: "1vw",
+        // m: "1vw",
         p: "1.5vw",
         // p: "20px",
-        width: 0.7,
+        width: 0.5,
         boxShadow: 3,
       }}
     >
@@ -89,35 +90,23 @@ const SymptomsList = (props) => {
     </Box>
   ));
 
-  // // API - POST
-  // const addNewSymptom = (data) => {
-  //   console.log(data);
-  //   axios
-  //     .post("http://localhost:3000/symptoms", data)
-  //     .then((response) => {
-  //       getSymptomsFromAPI();
-  //     })
-  //     .catch((error) => {
-  //       console.log("COULDN'T MAKE A new symptom ");
-  //     });
-  // };
-
-  // const symptomsData = props.symptomsData
-  // const addSymptom = (data) => {
-  //   props.addSymptomCallback(data);
-  //   getSymptomsFromAPI();
-  //   // const newData = props.getSymptomsCallback();
-  // };
-
   return (
     <div>
-      <h1> SymptomsList!!</h1>
-      <section>
-        <AddSymptomForm addSymptomCallback={addNewSymptom} />
-      </section>
-      {/* <section>{symptoms}</section> */}
+      <h1> Your Symptoms:</h1>
 
-      <Stack spacing={2.5} justifyContent="center" alignItems="center">
+      <Stack
+        spacing={2.5}
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          mb: 2,
+          display: "flex",
+          flexDirection: "column",
+          height: "95vh",
+          overflow: "hidden",
+          overflowY: "scroll",
+        }}
+      >
         {symptoms}
       </Stack>
     </div>

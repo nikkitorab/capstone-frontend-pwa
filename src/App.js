@@ -1,7 +1,5 @@
 import React from "react";
 import "./App.css";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import { BrowserRouter } from "react-router-dom";
 import { Routes } from "react-router-dom";
 
@@ -11,6 +9,10 @@ import AddMenu from "./components/screens/AddMenu";
 
 import DataOutput from "./components/data/DataOutput";
 import Entries from "./components/screens/Entries";
+import { Box } from "@mui/system";
+
+import AddSymptomForm from "./components/symptoms/AddSymptomForm";
+import AddTriggerForm from "./components/triggers/AddTriggerForm";
 
 import { Link, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -25,14 +27,16 @@ import TodayOutlinedIcon from "@material-ui/icons/TodayOutlined";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-import Container from "@mui/material/Container";
+import Popper, { PopperPlacementType } from "@mui/material/Popper";
+import Typography from "@mui/material/Typography";
+import Fade from "@mui/material/Fade";
+import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
 
 import BottomNavigation from "@mui/material/BottomNavigation";
 // import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
-// import RestoreIcon from "@mui/icons-material/Restore";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-// import ArchiveIcon from "@mui/icons-material/Archive";
 
 const App = () => {
   // const testFunc = () => {
@@ -99,11 +103,70 @@ const App = () => {
     triggersData: triggersData,
   };
 
-  // const homeProps = {
-  //   symptomsData: symptomsData,
-  //   triggersData: triggersData,
-  // };
-  // const [value, setValue] = React.useState(0);
+  const symptomEntriesProps = {
+    selection: "SymptomEntries",
+    symptomsData: symptomsData,
+    triggersData: triggersData,
+  };
+
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleAddClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpen(!open);
+  };
+
+  const handleClose = () => setOpen(false);
+  const [openAddSymptom, setOpenAddSymptom] = useState(false);
+  // const closeAddSymptom = () => setOpenAddSymptom(false);
+
+  const [openAddTrigger, setOpenAddTrigger] = useState(false);
+
+  const toggleAddSymptom = () => {
+    setOpenAddSymptom(!openAddSymptom);
+  };
+
+  const toggleAddTrigger = () => {
+    setOpenAddTrigger(!openAddTrigger);
+  };
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    bgcolor: "#fff",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const addNewSymptom = (data) => {
+    console.log(data);
+    axios
+      .post("http://localhost:3000/symptoms", data)
+      .then((response) => {
+        getSymptomsFromAPI();
+        // setSymptomsData(response.data);
+      })
+      .catch((error) => {
+        console.log("COULDN'T MAKE A new symptom ");
+      });
+  };
+
+  const addNewTrigger = (data) => {
+    console.log(data);
+    axios
+      .post("http://localhost:3000/triggers", data)
+      .then((response) => {
+        getTriggersFromAPI();
+      })
+      .catch((error) => {
+        console.log("COULDN'T MAKE A new trigger ");
+      });
+  };
 
   return (
     <div className="App">
@@ -117,17 +180,8 @@ const App = () => {
             <ButtonGroup variant="text" aria-label="text button group">
               <Stack
                 direction="row"
-                // direction={{ xs: "row", sm: "column" }}
                 divider={<Divider orientation="vertical" flexItem />}
-                // justifyContent="space-evenly"
-                // alignItems="center"
-                // spacing={4}
                 spacing={{ xs: 2, sm: 4, md: 7.5 }}
-
-                //             <Stack
-                //   direction={{ xs: 'row', sm: 'column' }}
-                //   // spacing={{ xs: 1, sm: 2, md: 4 }}
-                // >
               >
                 <IconButton aria-label="home" size="large">
                   <Link to="/">
@@ -139,12 +193,118 @@ const App = () => {
                     <FormatListBulletedIcon fontSize="large" />
                   </Link>
                 </IconButton>
-
-                <Fab aria-label="add">
-                  <Link to="/add" state={addProps}>
-                    <AddIcon />
-                  </Link>
+                <Fab
+                  aria-label="add"
+                  aria-haspopup="true"
+                  onClick={(event) => handleAddClick(event)}
+                >
+                  <AddIcon />
                 </Fab>
+                <Modal
+                  open={openAddSymptom}
+                  onClose={!openAddSymptom}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={modalStyle}>
+                    <AddSymptomForm
+                      addSymptomCallback={addNewSymptom}
+                      toggleAddSymptomCallback={toggleAddSymptom}
+                    ></AddSymptomForm>
+                  </Box>
+                </Modal>
+                <Modal
+                  open={openAddTrigger}
+                  onClose={!openAddTrigger}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={modalStyle}>
+                    <AddTriggerForm
+                      addTriggerCallback={addNewTrigger}
+                      toggleAddTriggerCallback={toggleAddTrigger}
+                    ></AddTriggerForm>
+                  </Box>
+                </Modal>
+                <Popper
+                  open={open}
+                  anchorEl={anchorEl}
+                  placement={"top"}
+                  transition
+                >
+                  {({ TransitionProps }) => (
+                    <Fade {...TransitionProps} timeout={350}>
+                      <Paper>
+                        <Stack sx={{ p: 2 }}>
+                          <Typography variant="h5" sx={{ p: 1 }}>
+                            Add...
+                          </Typography>
+                          <IconButton
+                            aria-label="lists"
+                            size="smalll"
+                            onClick={handleClose}
+                            sx={{
+                              position: "fixed",
+                              top: 0,
+                              right: 0,
+                              zIndex: 2000,
+                            }}
+                          >
+                            <DisabledByDefaultOutlinedIcon fontSize="small" />
+                          </IconButton>
+                          <ButtonGroup
+                            orientation="vertical"
+                            aria-label="vertical outlined button group"
+                          >
+                            <Button
+                              variant="outlined"
+                              startIcon={
+                                <FormatListBulletedIcon fontSize="small" />
+                              }
+                              onClick={toggleAddTrigger}
+                            >
+                              Trigger
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              startIcon={
+                                <FormatListBulletedIcon fontSize="small" />
+                              }
+                              onClick={toggleAddSymptom}
+                            >
+                              Symptom
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              startIcon={<TodayOutlinedIcon fontSize="small" />}
+                            >
+                              <Link
+                                to="/entries"
+                                state={entriesProps}
+                                onClick={handleClose}
+                              >
+                                Trigger Entry
+                              </Link>
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              startIcon={<TodayOutlinedIcon fontSize="small" />}
+                            >
+                              <Link
+                                to="/entries"
+                                state={symptomEntriesProps}
+                                onClick={handleClose}
+                              >
+                                Symptom Entry
+                              </Link>
+                            </Button>
+                            {/* {buttons} */}
+                          </ButtonGroup>
+                        </Stack>
+                      </Paper>
+                    </Fade>
+                  )}
+                </Popper>
                 <IconButton aria-label="entries" size="large">
                   <Link to="/entries" state={entriesProps}>
                     <TodayOutlinedIcon fontSize="large" />
@@ -157,41 +317,9 @@ const App = () => {
                 </IconButton>
               </Stack>
             </ButtonGroup>
-
-            {/* <Link to="/entries" state={entriesProps}>
-              Entries
-            </Link> */}
-            {/* <BottomNavigationAction
-              label="Recents"
-              icon={<RestoreIcon />}
-              value={<Link to="/">Home</Link>}
-            />
-            <BottomNavigationAction
-              label="Favorites"
-              icon={<FavoriteIcon />}
-              value={<Link to="/lists" state={listsProps} />}
-            />
-
-            <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} /> */}
           </BottomNavigation>
         </Paper>
-        {/* <Navbar bg="light" variant="light" fixed="bottom">
-          <Nav className="me-auto">
-            <Link to="/">Home</Link>
-            <Link to="/lists" state={listsProps}>
-              Lists
-            </Link>
-            <Link to="/add" state={addProps}>
-              Add
-            </Link>
-            <Link to="/data" state={dataProps}>
-              Data
-            </Link> */}
-        {/* <Link to="/entries" state={entriesProps}>
-              Entries
-            </Link> */}
-        {/* </Nav>
-        </Navbar> */}
+
         <Routes>
           <Route path="/lists" element={<Lists />}></Route>
           <Route path="/add" element={<AddMenu />}></Route>

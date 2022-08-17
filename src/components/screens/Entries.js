@@ -8,7 +8,18 @@ import axios from "axios";
 import SymptomEntries from "../symptoms/SymptomEntries";
 import TriggerEntries from "../triggers/TriggerEntries";
 import { useLocation } from "react-router-dom";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import AppBar from "@mui/material/AppBar";
+import Stack from "@mui/material/Stack";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Divider from "@mui/material/Divider";
+
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 // import { useLocation } from "react-router-dom";
 
 const Entries = (props) => {
@@ -33,6 +44,25 @@ const Entries = (props) => {
   const [completedTriggerEntries, setCompletedTriggerEntries] = useState([]);
 
   // console.log(`****** PROPS: ${props.selection}`)
+  const theme = createTheme({
+    indicator: {
+      backgroundColor: "green",
+    },
+    palette: {
+      primary: {
+        light: "#60ac5d",
+        main: "#2e7d32",
+        dark: "#004f04",
+        contrastText: "#fff",
+      },
+      secondary: {
+        light: "#cfff95",
+        main: "#9ccc65",
+        dark: "#6b9b37",
+        contrastText: "#000",
+      },
+    },
+  });
 
   useEffect(() => {
     getButtonColor();
@@ -107,12 +137,12 @@ const Entries = (props) => {
         break;
       }
     }
-    console.log(`iiiiid: ${symptomID}`);
+    // console.log(`iiiiid: ${symptomID}`);
     axios
       .post("http://localhost:3000/symptom-entries", data)
       .then((response) => {
         // getCompletedSymptomEntries();
-        console.log("!!!!!!!!!!!!!!!!!!!!!");
+        // console.log("!!!!!!!!!!!!!!!!!!!!!");
 
         const completed = { ...completedSymptomEntries };
         // const remaining = { ...remainingSymptomEntries };
@@ -130,31 +160,6 @@ const Entries = (props) => {
           (symptom) => symptom.symptom_id != symptomID
         );
         setRemainingSymptomEntries(remaining);
-
-        // for (const symptom of remainingSymptomEntries) {
-        //   if (symptom.symptom_id != symptomID) {
-        //     remaining.push(symptom);
-        //   }
-        // }
-        // setRemainingSymptomEntries(remaining);
-
-        // data.symptom_id
-
-        // completedSymptomEntries[data.symptom_id]
-
-        // for(const entry of completedSymptomEntries){
-
-        // }
-
-        // getRemainingSymptomEntries();
-        // remove symptom from to-do list
-        // console.log(`response: ${response}`);
-        // const updatedSymptoms = symptomsData.filter(
-        //   (symptom) => symptom.id !== symptomID
-        // );
-        // console.log(`response: ${response.data.id}`);
-        // // setLastEntryID(response.data.id);
-        // return response.data.id;
       })
       .catch((error) => {
         console.log("COULDN'T MAKE A new symptom entry");
@@ -164,57 +169,6 @@ const Entries = (props) => {
 
     // add related entries
   };
-
-  // const getCompletedSymptomEntries = () => {
-  //   axios
-  //     .get("http://localhost:3000/completed/symptoms")
-  //     .then((response) => {
-  //       setCompletedSymptomEntries(response.data);
-
-  //       //GET REMAINING ENTRIES:
-  //       const remaining = [];
-  //       for (const symptom of data.symptomsData) {
-  //         const id = symptom.id.toString();
-  //         if (!completedSymptomEntries[id]) {
-  //           console.log("*********");
-  //           remaining.push(symptom);
-  //         }
-  //       }
-
-  //       // symptomsData
-  //     })
-  //     .catch((error) => {
-  //       console.log("cant get ur symptoms :/ ");
-  //     });
-  // };
-
-  // const getRemainingSymptomEntries = () => {
-  //   axios
-  //     .get("http://localhost:3000/symptoms")
-  //     .then((response) => {
-  //       const remaining = [];
-  //       for (const symptom of response.data) {
-  //         const id = symptom.id.toString();
-  //         if (!completedSymptomEntries[id]) {
-  //           console.log("*********");
-  //           remaining.push(symptom);
-  //         }
-  //       }
-  //       console.log(`remaining: ${remaining}`);
-  //       setRemainingSymptomEntries(remaining);
-  //     })
-  //     .catch((error) => {
-  //       console.log("cant get ur symptoms :/ ");
-  //     });
-  // };
-
-  //props:
-  // const symptomEntries = props.symptomEntries
-  // dont forget about props.deleteSymptomEntriesCallback
-
-  // const deleteSymptomEntriesCallback={deleteSymptomEntries}
-
-  // console.log(data);
 
   const selectSymptomEntries = () => {
     setSelectedEntries("SymptomEntries");
@@ -228,44 +182,87 @@ const Entries = (props) => {
     setSymptomsButton("notSelected");
   };
 
-  return (
-    <div>
-      <section>
-        <button className={triggersButton} onClick={selectTriggerEntries}>
-          Triggers
-        </button>
-        <button className={symptomsButton} onClick={selectSymptomEntries}>
-          Symptoms
-        </button>
-      </section>
-      <section>
-        {selectedEntries === "TriggerEntries" && (
-          <TriggerEntries
-            remainingEntries={remainingTriggerEntries}
-            completedEntries={completedTriggerEntries}
-            // triggersData={data.triggersData}
-            // getTriggersCallback={props.getTriggersCallback}
-            // getTriggersData={props.getTriggersData}
-            // addTriggerCallback={props.addNewTriggerCallback}
-            // deleteTriggerCallback={props.deleteTriggerCallback}
+  const handleChange = (event, newValue) => {
+    // console.log(`newValue ${newValue}`);
+    setSelectedEntries(newValue);
+  };
 
-            // entries={props.symptomEntries}
-            // deleteSympEntriesCallback={props.deleteSympEntriesCallback}
-          ></TriggerEntries>
-        )}
-        {selectedEntries === "SymptomEntries" && (
-          <SymptomEntries
-            remainingEntries={remainingSymptomEntries}
-            completedEntries={completedSymptomEntries}
-            addEntryCallback={addSymptomEntryAPI}
-            // symptomsData={data.symptomsData}
-            // getSymptomsCallback={props.getSymptomsCallback}
-            // addSymptomCallback={props.addSymptomCallback}
-            // deleteSymptomCallback={props.deleteSymptomCallback}
-          ></SymptomEntries>
-        )}
-      </section>
-    </div>
+  return (
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="100%" alignItems="center">
+        <AppBar
+          maxWidth="sm"
+          color="secondary"
+          position="sticky"
+          sx={{
+            // border: 2,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "10px",
+            // m: "3vw",
+            p: "1vw",
+            width: 1,
+            boxShadow: 3,
+          }}
+        >
+          <Stack
+            spacing={10}
+            alignItems="center"
+            // alignItems="center"
+            direction="row"
+          >
+            {/* <Container maxWidth="sm"> */}
+            <ToggleButtonGroup
+              value={selectedEntries}
+              exclusive
+              size="large"
+              onChange={handleChange}
+              color="primary"
+              aria-label="list selection"
+
+              // textAlign="center"
+            >
+              <ToggleButton value="TriggerEntries" aria-label="Triggers">
+                Trigger Entries
+                {/* <FormatAlignLeftIcon /> */}
+              </ToggleButton>
+
+              <ToggleButton value="SymptomEntries" aria-label="Symptoms">
+                Symptom Entries
+                {/* <FormatAlignCenterIcon /> */}
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Stack>
+          {/* </Container> */}
+        </AppBar>
+
+        <Box
+          sx={{
+            borderRadius: "16px",
+            justifyContent: "center",
+            p: "3vw",
+            width: 1,
+            boxShadow: 3,
+          }}
+        >
+          {selectedEntries === "TriggerEntries" && (
+            <TriggerEntries
+              remainingEntries={remainingTriggerEntries}
+              completedEntries={completedTriggerEntries}
+            ></TriggerEntries>
+          )}
+          {selectedEntries === "SymptomEntries" && (
+            <SymptomEntries
+              remainingEntries={remainingSymptomEntries}
+              completedEntries={completedSymptomEntries}
+              addEntryCallback={addSymptomEntryAPI}
+            ></SymptomEntries>
+          )}
+        </Box>
+        {/* </section> */}
+        {/* </Stack> */}
+      </Container>
+    </ThemeProvider>
   );
 };
 

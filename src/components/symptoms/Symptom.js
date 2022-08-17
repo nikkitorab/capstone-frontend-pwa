@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Button from "@mui/material/Button";
 
 const Symptom = (props) => {
   const [entries, setEntries] = useState([]);
@@ -59,8 +60,10 @@ const Symptom = (props) => {
 
   return (
     <div>
-      <h1>{name}</h1>
-      <button onClick={deleteSymptom}>DELETE</button>
+      <h> {name} </h>
+      <Button variant="outlined" onClick={deleteSymptom}>
+        DELETE
+      </Button>
     </div>
   );
 };

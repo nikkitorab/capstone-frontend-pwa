@@ -99,6 +99,10 @@ const Chart = (props) => {
   // };
   // export default class Example extends PureComponent {
   // static demoUrl = 'https://codesandbox.io/s/simple-bar-chart-tpz8r';
+
+  // ABSENT MEAN: AVERAGE SYMPTOM RATING WITHOUT TRIGGER
+
+  // PRESENT MEAN: AVERAGE SYMPTOM RATING WITH TRIGGER
   return (
     <BarChart
       width={800}
@@ -116,8 +120,8 @@ const Chart = (props) => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="absent_mean" fill="#8884d8" />
-      <Bar dataKey="present_mean" fill="#82ca9d" />
+      <Bar dataKey="Avg Symptom Rating Without Trigger" fill="#8884d8" />
+      <Bar dataKey="Avg Symptom Rating With Trigger" fill="#82ca9d" />
     </BarChart>
   );
 };

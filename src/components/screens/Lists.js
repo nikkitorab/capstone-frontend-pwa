@@ -89,32 +89,17 @@ const Lists = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="100%">
-        {/* <Box sx={{ borderBottom: 2, borderColor: "divider", width: "100%" }}>
-          <AppBar color="secondary" position="static">
-            <Tabs
-              value={selectedList}
-              onChange={handleChange}
-              // textColor="inherit"
-              // indicatorColor="secondary"
-              aria-label="full width tabs"
-              centered
-              variant="fullWidth"
-            >
-              <Tab selectedList="SymptomsList" label="Symptoms" />
-              {/* <Divider orientation="vertical" /> */}
-        {/* <Tab selectedList="TriggersList" label="Triggers" />
-            </Tabs>
-          </AppBar>
-        </Box> */}{" "}
+      <Container maxWidth="100%" alignItems="center">
         <AppBar
           maxWidth="sm"
           color="secondary"
           position="sticky"
           sx={{
             // border: 2,
+            alignItems: "center",
+            justifyContent: "center",
             borderRadius: "10px",
-            m: "3vw",
+            // m: "3vw",
             p: "1vw",
             width: 1,
             boxShadow: 3,
@@ -122,7 +107,7 @@ const Lists = (props) => {
         >
           <Stack
             spacing={10}
-            justifyContent="center"
+            alignItems="center"
             // alignItems="center"
             direction="row"
           >
@@ -146,20 +131,25 @@ const Lists = (props) => {
                 Triggers
                 {/* <FormatAlignCenterIcon /> */}
               </ToggleButton>
-
-              {/* <ToggleButton value="right" aria-label="right aligned">
-        <FormatAlignRightIcon />
-      </ToggleButton>
-      <ToggleButton value="justify" aria-label="justified" disabled>
-        <FormatAlignJustifyIcon />
-      </ToggleButton> */}
             </ToggleButtonGroup>
           </Stack>
           {/* </Container> */}
         </AppBar>
-        {/* <section> */}
-        {/* <Stack spacing={10} justifyContent="center" alignItems="center"> */}
-        <Box>
+
+        <Box
+          sx={{
+            // border: 2,
+            borderRadius: "16px",
+            // m: "20px",
+            // alignItems: "center",
+            justifyContent: "center",
+            // m: "4vw",
+            p: "3vw",
+            // p: "20px",
+            width: 1,
+            boxShadow: 3,
+          }}
+        >
           {selectedList === "SymptomsList" && (
             <SymptomsList
               symptomsData={data.symptomsData}
