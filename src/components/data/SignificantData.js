@@ -143,16 +143,8 @@ const SignificantData = (props) => {
 
   const getChartData = () => {
     const chartData = [];
-    // let i = 0;
-    // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!");
+
     for (const d of triggerData) {
-      // console.log(`name: ${symptomNames[i]}`);
-      // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!");
-      // get symptom name from symptom id
-      // getSymptomNameByID(d.symptom_id);
-
-      // console.log(`names: ${props.symptomNames[0][67]}`);
-
       const data = {
         symptomName: props.symptomNames[d.symptom_id], // get symptom name from symptom id
         trigger: triggerName,

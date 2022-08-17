@@ -67,7 +67,7 @@ const DataOutput = (props) => {
       }}
     >
       <Typography variant="h2" sx={{ p: 1, fontWeight: "medium" }}>
-        Significant Triggers
+        Triggers:
       </Typography>
       <Typography variant="h5" sx={{ p: 2 }}>
         These links show the relationship between your symptoms and your
@@ -80,7 +80,7 @@ const DataOutput = (props) => {
         triggers based on the data you have provided
       </h3> */}
       <Typography variant="h" sx={{ p: 3, fontStyle: "italic" }}>
-        Note: only triggers and symptoms with statistically significant
+        Note: only triggers and symptoms with statistically meaningful
         relationships are shown.
       </Typography>
       <h1> </h1>

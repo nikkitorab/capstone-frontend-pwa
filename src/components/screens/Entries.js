@@ -8,15 +8,13 @@ import axios from "axios";
 import SymptomEntries from "../symptoms/SymptomEntries";
 import TriggerEntries from "../triggers/TriggerEntries";
 import { useLocation } from "react-router-dom";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Divider from "@mui/material/Divider";
 
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -27,11 +25,7 @@ const Entries = (props) => {
   const data = location.state;
 
   const [selectedEntries, setSelectedEntries] = useState(data.selection); // default
-  // console.log(selectedEntries);
-  // const [selectedEntries, setSelectedEntries] = useState("TriggerEntries"); // default
-  //BUTTON CLASS FOR COLORS:
-  // const [triggersButton, setTriggersButton] = useState("selected");
-  // const [symptomsButton, setSymptomsButton] = useState("notSelected");
+
   const [triggersButton, setTriggersButton] = useState("");
   const [symptomsButton, setSymptomsButton] = useState("");
 
