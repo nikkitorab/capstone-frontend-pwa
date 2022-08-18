@@ -96,11 +96,8 @@ const SymptomsList = (props) => {
         bgcolor: "secondary.light",
         borderColor: "primary.light",
 
-        // display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        // justifyContent: "flex",
-        // alignItems: "flex-end",
 
         // p: "20px",
         width: 0.5,

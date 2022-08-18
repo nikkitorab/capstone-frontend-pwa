@@ -69,12 +69,7 @@ const Symptom = (props) => {
           color: "#383B49",
           backgroundColor: "#BBC5F2",
           borderColor: "#C7D4F0",
-          justifyContent: "flex-end",
 
-          // position: "fixed",
-          // top: 0,
-          // right: 0,
-          // zIndex: 2000,
         }}
       >
         DELETE
