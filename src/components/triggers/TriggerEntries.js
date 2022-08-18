@@ -132,6 +132,7 @@ const TriggerEntries = (props) => {
         sx={{
           // border: 2,
           borderRadius: "16px",
+
           // m: "20px",
           alignItems: "center",
           justifyContent: "center",
@@ -167,6 +168,8 @@ const TriggerEntries = (props) => {
                   m: "1vw",
                   p: "1.5vw",
                   // p: "20px",
+                  bgcolor: "#EEF3F8",
+                  borderColor: "#969EC2",
                   width: 0.7,
                   boxShadow: 3,
                 }}

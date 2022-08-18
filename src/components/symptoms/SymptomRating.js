@@ -52,10 +52,10 @@ const SymptomRating = (props) => {
       sx={{
         border: 2,
         borderRadius: "16px",
-        // m: "20px",
+        bgcolor: "#EEF3F8",
+        borderColor: "#969EC2",
         m: "1vw",
         p: "1.5vw",
-        // p: "20px",
         width: 0.7,
         boxShadow: 3,
       }}

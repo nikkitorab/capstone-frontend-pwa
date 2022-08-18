@@ -12,7 +12,16 @@ const Trigger = (props) => {
   return (
     <div>
       <h> {name} </h>
-      <Button variant="outlined" onClick={deleteTrigger}>
+      <Button
+        onClick={deleteTrigger}
+        size="large"
+        variant="contained"
+        sx={{
+          color: "#383B49",
+          backgroundColor: "#BBC5F2",
+          borderColor: "#C7D4F0",
+        }}
+      >
         DELETE
       </Button>
       {/* <button onClick={deleteTrigger}>DELETE</button> */}

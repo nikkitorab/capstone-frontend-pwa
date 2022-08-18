@@ -40,19 +40,19 @@ const Entries = (props) => {
   // console.log(`****** PROPS: ${props.selection}`)
   const theme = createTheme({
     indicator: {
-      backgroundColor: "green",
+      backgroundColor: "#ECFFE8",
     },
     palette: {
       primary: {
-        light: "#60ac5d",
-        main: "#2e7d32",
-        dark: "#004f04",
+        light: "#969EC2",
+        main: "#383B49",
+        dark: "#FFC0CB",
         contrastText: "#fff",
       },
       secondary: {
-        light: "#cfff95",
-        main: "#9ccc65",
-        dark: "#6b9b37",
+        light: "#D4E2ED",
+        main: "#C7D4F0",
+        dark: "#BBC5F2",
         contrastText: "#000",
       },
     },

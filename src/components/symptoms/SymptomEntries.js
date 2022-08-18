@@ -9,9 +9,30 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Box from "@mui/material/Box";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const SymptomEntries = (props) => {
   const [selectedList, setSelectedList] = useState("ToDo"); // default
+
+  const theme = createTheme({
+    indicator: {
+      backgroundColor: "#ECFFE8",
+    },
+    palette: {
+      primary: {
+        light: "#969EC2",
+        main: "#383B49",
+        dark: "#FFC0CB",
+        contrastText: "#fff",
+      },
+      secondary: {
+        light: "#D4E2ED",
+        main: "#C7D4F0",
+        dark: "#BBC5F2",
+        contrastText: "#000",
+      },
+    },
+  });
   // const location = useLocation();
   // const data = location.state;
   // console.log(data);
@@ -200,6 +221,7 @@ const SymptomEntries = (props) => {
           // m: "5vw",
           p: "1.5vw",
           // p: "20px",
+          // bgcolor: "secondary.light",
           width: 1,
           boxShadow: 3,
         }}
@@ -224,6 +246,9 @@ const SymptomEntries = (props) => {
                 sx={{
                   border: 2,
                   borderRadius: "16px",
+                  bgcolor: "#EEF3F8",
+                  borderColor: "#969EC2",
+
                   // m: "20px",
                   m: "1vw",
                   p: "1.5vw",

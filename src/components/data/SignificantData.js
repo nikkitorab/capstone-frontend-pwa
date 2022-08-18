@@ -14,7 +14,6 @@ const SignificantData = (props) => {
   const [chartData, setChartData] = useState("");
   const [symptomNames, setSymptomNames] = useState(props.symptomNames);
 
-
   const handleClose = () => setShowChart(false);
 
   const trigger_id = props.trigger_id;
@@ -31,7 +30,6 @@ const SignificantData = (props) => {
     p: 4,
   };
 
-
   useEffect(() => {
     getTriggerNameByID();
     getTriggerData();
@@ -44,14 +42,12 @@ const SignificantData = (props) => {
   const viewData = () => {
     getChartData();
     toggleChart();
-
   };
 
   const getTriggerNameByID = () => {
     axios
       .get(`http://localhost:3000/triggers/name/${trigger_id}`)
       .then((response) => {
-     
         setTriggerName(response.data[0].name);
       })
       .catch((error) => {
@@ -59,14 +55,12 @@ const SignificantData = (props) => {
       });
   };
 
-
   const getTriggerData = () => {
     axios
       .get(
         `http://localhost:3000/related-entries/data/sig/trigger/${trigger_id}`
       )
       .then((response) => {
-      
         const data = [];
         for (const row of response.data) {
           const rowData = {};
@@ -84,7 +78,6 @@ const SignificantData = (props) => {
         console.log(data);
 
         setTriggerData(data);
-    
       })
       .catch((error) => {
         console.log("cant get ur symptoms :/ ");
@@ -108,7 +101,6 @@ const SignificantData = (props) => {
     }
     // return chartData;
     setChartData(chartData);
-  
   };
 
   return (
@@ -124,7 +116,7 @@ const SignificantData = (props) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <h1> Relationships between {triggerName} and Symptoms:</h1>
+          <h2> Relationships between {triggerName} and Symptoms:</h2>
           <Chart
             chartData={chartData}
             symptomNames={symptomNames}

@@ -170,6 +170,32 @@ const App = () => {
 
   return (
     <div className="App">
+      <Modal
+        open={openAddSymptom}
+        onClose={!openAddSymptom}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <AddSymptomForm
+            addSymptomCallback={addNewSymptom}
+            toggleAddSymptomCallback={toggleAddSymptom}
+          ></AddSymptomForm>
+        </Box>
+      </Modal>
+      <Modal
+        open={openAddTrigger}
+        onClose={!openAddTrigger}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <AddTriggerForm
+            addTriggerCallback={addNewTrigger}
+            toggleAddTriggerCallback={toggleAddTrigger}
+          ></AddTriggerForm>
+        </Box>
+      </Modal>
       {/* <div className="Nav-Bar"> */}
       <BrowserRouter>
         <Paper
@@ -193,6 +219,7 @@ const App = () => {
                     <FormatListBulletedIcon fontSize="large" />
                   </Link>
                 </IconButton>
+
                 <Fab
                   aria-label="add"
                   aria-haspopup="true"
@@ -200,32 +227,7 @@ const App = () => {
                 >
                   <AddIcon />
                 </Fab>
-                <Modal
-                  open={openAddSymptom}
-                  onClose={!openAddSymptom}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={modalStyle}>
-                    <AddSymptomForm
-                      addSymptomCallback={addNewSymptom}
-                      toggleAddSymptomCallback={toggleAddSymptom}
-                    ></AddSymptomForm>
-                  </Box>
-                </Modal>
-                <Modal
-                  open={openAddTrigger}
-                  onClose={!openAddTrigger}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={modalStyle}>
-                    <AddTriggerForm
-                      addTriggerCallback={addNewTrigger}
-                      toggleAddTriggerCallback={toggleAddTrigger}
-                    ></AddTriggerForm>
-                  </Box>
-                </Modal>
+
                 <Popper
                   open={open}
                   anchorEl={anchorEl}

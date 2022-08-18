@@ -17,32 +17,30 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-
 const Lists = (props) => {
   const [selectedList, setSelectedList] = useState("SymptomsList"); // default
   //BUTTON CLASS FOR COLORS:
   const [symptomsButton, setSymptomsButton] = useState("selected");
   const [triggersButton, setTriggersButton] = useState("notSelected");
 
- 
   const location = useLocation();
   const data = location.state;
 
   const theme = createTheme({
     indicator: {
-      backgroundColor: "green",
+      backgroundColor: "#ECFFE8",
     },
     palette: {
       primary: {
-        light: "#60ac5d",
-        main: "#2e7d32",
-        dark: "#004f04",
+        light: "#969EC2",
+        main: "#383B49",
+        dark: "#FFC0CB",
         contrastText: "#fff",
       },
       secondary: {
-        light: "#cfff95",
-        main: "#9ccc65",
-        dark: "#6b9b37",
+        light: "#D4E2ED",
+        main: "#C7D4F0",
+        dark: "#BBC5F2",
         contrastText: "#000",
       },
     },
@@ -59,7 +57,6 @@ const Lists = (props) => {
     setTriggersButton("selected");
     setSymptomsButton("notSelected");
   };
-
 
   const handleChange = (event, newValue) => {
     // console.log(`newValue ${newValue}`);
@@ -92,6 +89,7 @@ const Lists = (props) => {
           <Stack
             spacing={10}
             alignItems="center"
+            bgcolor="secondary.dark"
             // alignItems="center"
             direction="row"
           >
@@ -124,6 +122,7 @@ const Lists = (props) => {
           sx={{
             // border: 2,
             borderRadius: "16px",
+
             // m: "20px",
             // alignItems: "center",
             justifyContent: "center",

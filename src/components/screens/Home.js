@@ -4,31 +4,31 @@ import { Routes } from "react-router-dom";
 import { Link, Route } from "react-router-dom";
 import Entries from "./Entries";
 import axios from "axios";
+import Typography from "@mui/material/Typography";
 
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import green from "@mui/material/colors/green";
+// import green from "@mui/material/colors/green";
 import { Box } from "@mui/system";
-import List from "@mui/material/List";
 
 const theme = createTheme({
   indicator: {
-    backgroundColor: "green",
+    backgroundColor: "#ECFFE8",
   },
   palette: {
     primary: {
-      light: "#60ac5d",
-      main: "#2e7d32",
-      dark: "#004f04",
+      light: "#969EC2",
+      main: "#FFC0CB",
+      dark: "#FFC0CB",
       contrastText: "#fff",
     },
     secondary: {
-      light: "#cfff95",
-      main: "#9ccc65",
-      dark: "#6b9b37",
+      light: "#D4E2ED",
+      main: "#C7D4F0",
+      dark: "#BBC5F2",
       contrastText: "#000",
     },
   },
@@ -117,20 +117,33 @@ const Home = (props) => {
         maxWidth="sm"
         sx={{
           justifyContent: "flex-end",
+          // bgcolor: "secondary.light",
 
           // p: "20px",
         }}
       >
-        <h1> Today's Dashboard</h1>
+        <Typography variant="h2" sx={{ p: 1, fontWeight: "medium" }} mt={4}>
+          Today's Dashboard
+        </Typography>
+        <Typography variant="h" sx={{ fontStyle: "italic" }} mt={3}>
+          Data insights will be more accurate if you complete your entries
+          everyday
+        </Typography>
+        {/* <h>
+          Your data insights will be more accurate if you complete all your
+          entries everyday
+        </h> */}
+        {/* <h1> Today's Dashboard</h1> */}
 
         <Stack
           spacing={2}
           alignItems="center"
           sx={{
             mb: 2,
+            mt: 3,
             display: "flex",
             flexDirection: "column",
-            height: "80vh",
+            height: "65vh",
             overflow: "hidden",
             overflowY: "scroll",
           }}
@@ -140,34 +153,47 @@ const Home = (props) => {
             sx={{
               border: 2,
               borderRadius: "16px",
+              borderColor: "primary.light",
               // m: "20px",
-              m: "2vw",
-              p: "2vw",
+              m: "1vw",
+              p: "1vw",
+              bgcolor: "secondary.light",
 
               // p: "20px",
               width: 1,
               boxShadow: 3,
+              // height: "30vh",
             }}
           >
-            <h2>Which triggers did you experience today?</h2>
-            <h3>
-              completed {completedTriggers}/{triggersData.length}
-            </h3>
+            <Typography variant="h5" sx={{ p: 2, fontWeight: "medium" }} mt={2}>
+              Which triggers did you experience today?
+              {/* <h2>Which triggers did you experience today?</h2> */}
+            </Typography>
+            {/* <h3> */}
+            <Typography variant="h" sx={{ fontStyle: "italic" }} mt={2}>
+              COMPLETED {completedTriggers}/{triggersData.length}
+            </Typography>
+            {/* </h3> */}
             <Box
               sx={{
-                m: "2vw",
+                m: "1vw",
+                p: "0.5vw",
               }}
             >
-              <Button size="large" variant="outlined">
+              <Button
+                size="large"
+                variant="contained"
+                sx={{
+                  color: "secondary.dark",
+                  backgroundColor: "secondary.dark",
+                  borderColor: "secondary.main",
+                }}
+              >
                 <Link to="/entries" state={triggerEntriesProps}>
                   Trigger Entries
                 </Link>
               </Button>
               <h4> </h4>
-              <h>
-                Your data insights will be more accurate if you complete all
-                your entries everyday
-              </h>
             </Box>
           </Box>
           {/* </section> */}
@@ -175,36 +201,46 @@ const Home = (props) => {
             sx={{
               border: 2,
               borderRadius: "16px",
-              m: "2vw",
-              p: "2vw",
+              m: "1vw",
+              p: "1vw",
+              borderColor: "primary.light",
               // padding-bottom:
+              bgcolor: "secondary.light",
               width: 1,
               boxShadow: 3,
             }}
           >
-            <h2>Which symptoms did you experience today?</h2>
-            <h3>
-              completed {completedSymptoms}/{symptomsData.length}
-            </h3>
+            <Typography variant="h5" sx={{ p: 2, fontWeight: "medium" }} mt={2}>
+              Which symptoms did you experience today?
+            </Typography>
+            {/* <h2>Which symptoms did you experience today?</h2> */}
+            <Typography variant="h" sx={{ fontStyle: "italic" }} mt={2}>
+              COMPLETED {completedSymptoms}/{symptomsData.length}
+            </Typography>
             <Box
               sx={{
                 // m: "20px",
                 // p: "20px",
-                m: "2vw",
+                m: "1vw",
+                p: "0.5vw",
                 // width: 1,
                 // boxShadow: 3,
               }}
             >
-              <Button size="large" variant="outlined">
+              <Button
+                size="large"
+                variant="contained"
+                sx={{
+                  color: "secondary.dark",
+                  backgroundColor: "secondary.dark",
+                  borderColor: "secondary.main",
+                }}
+              >
                 <Link to="/entries" state={symptomEntriesProps}>
                   Symptom Entries
                 </Link>
               </Button>
               <h4> </h4>
-              <h>
-                Your data insights will be more accurate if you complete all
-                your entries everyday
-              </h>
             </Box>
           </Box>
           {/* </List> */}

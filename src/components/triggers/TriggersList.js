@@ -96,8 +96,14 @@ const TriggersList = (props) => {
       sx={{
         border: 2,
         borderRadius: "16px",
-
         p: "1.5vw",
+        bgcolor: "secondary.light",
+        borderColor: "primary.light",
+
+        justifyContent: "space-between",
+        alignItems: "center",
+
+        // p: "20px",
         width: 0.5,
         boxShadow: 3,
       }}
@@ -142,7 +148,7 @@ const TriggersList = (props) => {
           mb: 2,
           display: "flex",
           flexDirection: "column",
-          height: "95vh",
+          height: "75vh",
           overflow: "hidden",
           overflowY: "scroll",
         }}

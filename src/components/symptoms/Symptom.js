@@ -61,9 +61,27 @@ const Symptom = (props) => {
   return (
     <div>
       <h> {name} </h>
-      <Button variant="outlined" onClick={deleteSymptom}>
+      <Button
+        onClick={deleteSymptom}
+        size="large"
+        variant="contained"
+        sx={{
+          color: "#383B49",
+          backgroundColor: "#BBC5F2",
+          borderColor: "#C7D4F0",
+          justifyContent: "flex-end",
+
+          // position: "fixed",
+          // top: 0,
+          // right: 0,
+          // zIndex: 2000,
+        }}
+      >
         DELETE
       </Button>
+      {/* <Button variant="outlined" onClick={deleteSymptom}>
+        DELETE
+      </Button> */}
     </div>
   );
 };

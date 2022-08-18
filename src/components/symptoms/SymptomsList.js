@@ -7,9 +7,30 @@ import AddSymptomForm from "./AddSymptomForm";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const SymptomsList = (props) => {
   const [symptomsData, setSymptomsData] = useState([]);
+
+  const theme = createTheme({
+    indicator: {
+      backgroundColor: "#ECFFE8",
+    },
+    palette: {
+      primary: {
+        light: "#969EC2",
+        main: "#383B49",
+        dark: "#FFC0CB",
+        contrastText: "#fff",
+      },
+      secondary: {
+        light: "#D4E2ED",
+        main: "#C7D4F0",
+        dark: "#BBC5F2",
+        contrastText: "#000",
+      },
+    },
+  });
   // const location = useLocation();
   // const data = location.state;
   // console.log(data);
@@ -72,6 +93,15 @@ const SymptomsList = (props) => {
         border: 2,
         borderRadius: "16px",
         p: "1.5vw",
+        bgcolor: "secondary.light",
+        borderColor: "primary.light",
+
+        // display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        // justifyContent: "flex",
+        // alignItems: "flex-end",
+
         // p: "20px",
         width: 0.5,
         boxShadow: 3,
@@ -87,25 +117,27 @@ const SymptomsList = (props) => {
   ));
 
   return (
-    <div>
-      <h1> Your Symptoms:</h1>
+    <ThemeProvider theme={theme}>
+      <div>
+        <h1> Your Symptoms:</h1>
 
-      <Stack
-        spacing={2.5}
-        justifyContent="center"
-        alignItems="center"
-        sx={{
-          mb: 2,
-          display: "flex",
-          flexDirection: "column",
-          height: "95vh",
-          overflow: "hidden",
-          overflowY: "scroll",
-        }}
-      >
-        {symptoms}
-      </Stack>
-    </div>
+        <Stack
+          spacing={2.5}
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            mb: 2,
+            display: "flex",
+            flexDirection: "column",
+            height: "75vh",
+            overflow: "hidden",
+            overflowY: "scroll",
+          }}
+        >
+          {symptoms}
+        </Stack>
+      </div>
+    </ThemeProvider>
   );
 };
 
